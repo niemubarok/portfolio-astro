@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import ProjectCard3D from '../../components/ProjectCard3D.astro';
+import SpaceBackground from '../../components/SpaceBackground.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort(
+    (a, b) => a.data.order - b.data.order,
+);
+
+const title = 'All Projects - Husni Mubarok';
+const description =
+    'Explore my complete portfolio of web development projects, featuring fullstack applications, robust APIs, and interactive UIs.';
+---
+
+<Layout title={title} description={description}>
+    <Navbar />
+
+    <main class="min-h-screen pt-32 pb-16 relative overflow-hidden">
+        <!-- Dynamic Space Background -->
+        <SpaceBackground />
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <header class="mb-16 text-center" data-aos="fade-down">
+                <h1
+                    class="text-5xl md:text-7xl font-display font-bold text-white mb-6"
+                >
+                    All <span
+                        class="text-transparent bg-clip-text bg-neon-gradient glitch"
+                        data-text="Works">Works</span
+                    >
+                </h1>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                    A complete archive of my engineering milestones. From
+                    experimental prototypes to production-ready platforms.
+                </p>
+            </header>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"
+            >
+                {
+                    projects.map((project, index) => (
+                        <div
+                            class="pt-24"
+                            data-aos="fade-up"
+                            data-aos-delay={index * 100}
+                        >
+                            <ProjectCard3D project={project} />
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>

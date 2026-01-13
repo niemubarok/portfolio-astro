@@ -1,0 +1,177 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import fs from 'node:fs';
+import path from 'node:path';
+
+export async function getStaticPaths() {
+    const projects = await getCollection('projects');
+    return projects.map((project) => ({
+        params: { slug: project.slug },
+        props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render(); // Render Markdown content
+
+// Process gallery images (support for folders)
+let galleryImages: string[] = [];
+if (project.data.gallery && project.data.gallery.length > 0) {
+    project.data.gallery.forEach((item) => {
+        // Check if item is a file or directory path
+        // Simple heuristic: if it has an extension, it's a file. Otherwise check fs.
+        const isFile = item.split('/').pop()?.includes('.');
+
+        if (isFile) {
+            galleryImages.push(item);
+        } else {
+            // It's a directory, read all images
+            try {
+                const cleanPath = item.startsWith('/') ? item.slice(1) : item;
+                const publicDir = path.join(process.cwd(), 'public');
+                const dirPath = path.join(publicDir, cleanPath);
+
+                if (
+                    fs.existsSync(dirPath) &&
+                    fs.lstatSync(dirPath).isDirectory()
+                ) {
+                    const files = fs.readdirSync(dirPath);
+                    const images = files
+                        .filter((f: string) =>
+                            /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(f),
+                        )
+                        .sort(); // Sort alphabetically
+
+                    // Ensure trailing slash for web path
+                    const webPath = item.endsWith('/') ? item : item + '/';
+
+                    images.forEach((img: string) => {
+                        galleryImages.push(`${webPath}${img}`);
+                    });
+                }
+            } catch (error) {
+                console.error(`Error processing gallery path: ${item}`, error);
+            }
+        }
+    });
+}
+---
+
+<Layout title={`${project.data.title} - Project Details`}>
+    <Navbar />
+
+    <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div class="mb-8">
+            <a
+                href="/#projects"
+                class="inline-flex items-center text-primary-400 hover:text-primary-300 transition-colors"
+            >
+                <svg
+                    class="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Back to Projects
+            </a>
+        </div>
+
+        <article class="prose prose-invert prose-lg max-w-none">
+            <header class="mb-10 text-center">
+                <div class="flex items-center justify-center gap-2 mb-6">
+                    {
+                        project.data.tech_stack.map((tech) => (
+                            <span class="px-3 py-1 rounded-full bg-dark-surface border border-dark-border text-xs font-medium text-slate-300">
+                                {tech}
+                            </span>
+                        ))
+                    }
+                </div>
+                <h1
+                    class="font-display text-4xl md:text-5xl font-bold text-white mb-6 text-gradient"
+                >
+                    {project.data.title}
+                </h1>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto lead">
+                    {project.data.description}
+                </p>
+
+                <div class="flex justify-center gap-4 mt-8">
+                    {
+                        project.data.demo_url && (
+                            <a
+                                href={project.data.demo_url}
+                                target="_blank"
+                                class="px-6 py-2 rounded-lg bg-primary-600 hover:bg-primary-500 text-white font-medium transition-colors"
+                            >
+                                Live Demo
+                            </a>
+                        )
+                    }
+                    {
+                        project.data.github_url && (
+                            <a
+                                href={project.data.github_url}
+                                target="_blank"
+                                class="px-6 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium transition-colors"
+                            >
+                                GitHub Repo
+                            </a>
+                        )
+                    }
+                </div>
+            </header>
+
+            {
+                project.data.thumbnail && (
+                    <div class="rounded-2xl overflow-hidden border border-dark-border mb-12 shadow-2xl shadow-primary-500/10">
+                        <img
+                            src={project.data.thumbnail}
+                            alt={project.data.title}
+                            class="w-full h-auto"
+                        />
+                    </div>
+                )
+            }
+
+            <div
+                class="bg-dark-surface/50 rounded-2xl p-8 border border-dark-border"
+            >
+                <Content />
+                <Content />
+            </div>
+
+            {
+                galleryImages.length > 0 && (
+                    <div class="mt-12">
+                        <h2 class="text-2xl font-bold text-white mb-6">
+                            Gallery
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {galleryImages.map((image) => (
+                                <div class="rounded-xl overflow-hidden border border-dark-border shadow-lg group">
+                                    <img
+                                        src={image}
+                                        alt={`Gallery image for ${project.data.title}`}
+                                        class="w-full h-auto hover:scale-105 transition-transform duration-500"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+        </article>
+    </main>
+
+    <Footer />
+</Layout>

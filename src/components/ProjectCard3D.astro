@@ -1,0 +1,64 @@
+---
+const { project } = Astro.props;
+---
+
+<article class="project-card group relative h-[400px] w-full rounded-2xl bg-dark-surface border border-dark-border overflow-visible transform-style-3d hover:z-50" data-tilt data-tilt-max="10">
+    <!-- Colorful Code Blur Background -->
+    <div class="absolute inset-0 z-0 overflow-hidden rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none transform-style-3d translate-z-[-10px]">
+        <div class="absolute -top-20 -left-20 w-[150%] h-[150%] bg-gradient-to-br from-purple-500/10 via-transparent to-cyan-500/10 blur-[80px]"></div>
+        <!-- Abstract Code Lines -->
+        <div class="absolute top-[15%] left-[-10%] w-[120%] h-2 bg-gradient-to-r from-transparent via-cyan-400 to-transparent blur-md -rotate-3 opacity-40"></div>
+        <div class="absolute top-[35%] left-[-10%] w-[120%] h-2 bg-gradient-to-r from-transparent via-purple-400 to-transparent blur-md -rotate-3 opacity-40"></div>
+        <div class="absolute top-[55%] left-[-10%] w-[120%] h-2 bg-gradient-to-r from-transparent via-yellow-400 to-transparent blur-md -rotate-3 opacity-40"></div>
+        <div class="absolute top-[75%] left-[-10%] w-[120%] h-2 bg-gradient-to-r from-transparent via-green-400 to-transparent blur-md -rotate-3 opacity-40"></div>
+    </div>
+
+    <!-- Image Layer (Pops out) -->
+    <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-[90%] aspect-video rounded-xl overflow-hidden shadow-2xl shadow-primary-500/20 transform-style-3d translate-z-10 group-hover:translate-z-20 group-hover:scale-105 transition-all duration-500 ease-out border border-white/10 bg-dark-bg">
+         {project.data.thumbnail ? (
+            <img src={project.data.thumbnail} alt={project.data.title} class="w-full h-full object-cover" />
+         ) : (
+             <div class="relative w-full h-full bg-slate-900 flex items-center justify-center overflow-hidden">
+                <!-- Colorful "Code Line" Blur Background -->
+                <div class="absolute inset-0 opacity-30">
+                    <div class="absolute top-[20%] left-[-10%] w-[120%] h-4 bg-gradient-to-r from-cyan-500 to-blue-500 blur-xl transform -rotate-6"></div>
+                    <div class="absolute top-[40%] left-[-10%] w-[120%] h-4 bg-gradient-to-r from-purple-500 to-pink-500 blur-xl transform -rotate-6"></div>
+                    <div class="absolute top-[60%] left-[-10%] w-[120%] h-4 bg-gradient-to-r from-yellow-500 to-orange-500 blur-xl transform -rotate-6"></div>
+                    <div class="absolute top-[80%] left-[-10%] w-[120%] h-4 bg-gradient-to-r from-green-500 to-emerald-500 blur-xl transform -rotate-6"></div>
+                </div>
+                
+                <span class="text-6xl animate-pulse relative z-10">🚀</span>
+             </div>
+         )}
+    </div>
+
+    <!-- Content -->
+    <div class="absolute bottom-0 w-full h-2/3 p-6 pt-12 flex flex-col justify-end bg-gradient-to-b from-transparent to-dark-bg/95 rounded-b-2xl transform-style-3d translate-z-0">
+        <div class="transform-style-3d translate-z-10 group-hover:translate-z-20 transition-transform duration-300">
+             <div class="flex gap-2 mb-3 flex-wrap">
+                  {project.data.tech_stack.slice(0, 3).map((tech: unknown) => (
+                    <span class="text-xs font-bold px-2 py-1 rounded bg-black/50 text-primary-300 border border-primary-500/30 backdrop-blur-sm">
+                      {tech}
+                    </span>
+                  ))}
+            </div>
+            <h3 class="text-2xl font-display font-bold text-white mb-2 group-hover:text-primary-400 transition-all">
+                {project.data.title}
+            </h3>
+            <p class="text-slate-400 line-clamp-2 text-sm mb-4 leading-relaxed group-hover:text-slate-200">
+                {project.data.description}
+            </p>
+            <a href={`/projects/${project.slug}`} class="inline-flex items-center text-sm font-bold text-primary-400 hover:text-white transition-colors gap-1 group-hover:gap-2">
+                View Project 
+                <svg class="w-4 h-4 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </a>
+        </div>
+    </div>
+</article>
+
+<style>
+    .project-card {
+        transform-style: preserve-3d;
+        transform: perspective(1000px);
+    }
+</style>

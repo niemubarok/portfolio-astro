@@ -1,0 +1,201 @@
+---
+// TechBackground.astro
+export interface Props {
+    theme?: 'code' | 'grid' | 'binary' | 'circuit';
+    direction?: 'up' | 'down' | 'left' | 'right';
+    speed?: number;
+}
+
+const { theme = 'code', direction = 'up', speed = 0.5 } = Astro.props;
+
+// Mock Data Generators
+const generateCode = () => {
+    const snippets = [
+        '<span class="text-pink-500">const</span> <span class="text-blue-400">universe</span> = <span class="text-yellow-400">init</span>();',
+        '<span class="text-purple-400">async</span> <span class="text-pink-500">function</span> <span class="text-blue-400">createLife</span>() {',
+        '  <span class="text-pink-500">return</span> <span class="text-green-400">new Promise</span>();',
+        '}',
+        '<span class="text-slate-500">// TODO: Fix entropy</span>',
+        '<span class="text-blue-500">console</span>.<span class="text-yellow-400">log</span>(<span class="text-orange-400">"Hello World"</span>);',
+        '<span class="text-pink-500">import</span> { <span class="text-blue-400">Galaxy</span> } <span class="text-pink-500">from</span> <span class="text-green-400">"cosmos"</span>;',
+        '<span class="text-blue-400">div</span>.<span class="text-yellow-400">style</span>.<span class="text-blue-400">background</span> = <span class="text-orange-400">"#000"</span>;',
+        '<span class="text-pink-500">if</span> ( <span class="text-blue-400">awake</span> ) <span class="text-yellow-400">code</span>();',
+    ];
+    return Array.from(
+        { length: 30 },
+        () => snippets[Math.floor(Math.random() * snippets.length)],
+    );
+};
+
+const generateBinary = () => {
+    return Array.from({ length: 40 }, () =>
+        Math.random().toString(2).substring(2, 10),
+    ); // "01010101"
+};
+
+const content =
+    theme === 'code'
+        ? generateCode()
+        : theme === 'binary'
+          ? generateBinary()
+          : [];
+---
+
+<div
+    class="absolute inset-0 overflow-hidden pointer-events-none select-none z-[-1] opacity-20"
+>
+    <!-- Parallax Container -->
+    <div
+        class={`parallax-layer w-full h-[150%] absolute top-0 left-0 flex flex-col gap-4 p-8 transition-transform duration-100 ease-linear ${theme === 'grid' ? 'grid-bg' : ''}`}
+        data-speed={speed}
+        data-direction={direction}
+    >
+        {
+            theme === 'code' && (
+                <div class="font-mono text-sm leading-8 transform -rotate-3 text-left">
+                    {content.map((line, i) => (
+                        <div
+                            class="whitespace-nowrap opacity-60 hover:opacity-100 transition-opacity"
+                            style={`margin-left: ${Math.random() * 4}rem`}
+                        >
+                            <Fragment set:html={line} />
+                        </div>
+                    ))}
+                </div>
+            )
+        }
+
+        {
+            theme === 'binary' && (
+                <div class="font-mono text-xs leading-4 text-green-500/50 flex flex-wrap gap-2 justify-center opacity-40">
+                    {content.map((bin) => (
+                        <span
+                            class="animate-pulse duration-[3s]"
+                            style={`animation-delay: ${Math.random() * 2}s`}
+                        >
+                            {bin}
+                        </span>
+                    ))}
+                </div>
+            )
+        }
+
+        {
+            theme === 'grid' && (
+                <div class="w-full h-full perspective-grid">
+                    <div class="grid-lines" />
+                </div>
+            )
+        }
+
+        {
+            theme === 'circuit' && (
+                <svg
+                    class="w-full h-full opacity-30"
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="none"
+                >
+                    <path
+                        d="M0 50 Q 25 25 50 50 T 100 50"
+                        stroke="url(#circuit-grad)"
+                        stroke-width="0.5"
+                        fill="none"
+                        class="animate-draw"
+                    />
+                    <path
+                        d="M0 30 Q 25 55 50 30 T 100 30"
+                        stroke="url(#circuit-grad)"
+                        stroke-width="0.5"
+                        fill="none"
+                        class="animate-draw"
+                        style="animation-delay: 1s"
+                    />
+                    <path
+                        d="M0 70 Q 25 45 50 70 T 100 70"
+                        stroke="url(#circuit-grad)"
+                        stroke-width="0.5"
+                        fill="none"
+                        class="animate-draw"
+                        style="animation-delay: 2s"
+                    />
+                    <defs>
+                        <linearGradient
+                            id="circuit-grad"
+                            x1="0%"
+                            y1="0%"
+                            x2="100%"
+                            y2="0%"
+                        >
+                            <stop
+                                offset="0%"
+                                stop-color="rgba(56, 189, 248, 0)"
+                            />
+                            <stop
+                                offset="50%"
+                                stop-color="rgba(56, 189, 248, 0.5)"
+                            />
+                            <stop
+                                offset="100%"
+                                stop-color="rgba(56, 189, 248, 0)"
+                            />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            )
+        }
+    </div>
+</div>
+
+<style>
+    .grid-bg {
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.05) 1px,
+                transparent 1px
+            );
+        background-size: 50px 50px;
+        transform: perspective(500px) rotateX(60deg);
+    }
+
+    .animate-draw {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: draw 5s linear infinite;
+    }
+
+    @keyframes draw {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+</style>
+
+<script>
+    // Simple Scroll Parallax
+    const layers = document.querySelectorAll('.parallax-layer');
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+
+        layers.forEach((layer) => {
+            const speed = parseFloat(layer.getAttribute('data-speed') || '0.5');
+            const direction = layer.getAttribute('data-direction') || 'up';
+            const element = layer as HTMLElement;
+
+            // Allow override via parent transform if needed, but here we just translate
+            // Check if element is in view to optimize
+            const rect = element.parentElement?.getBoundingClientRect();
+            if (rect && rect.top < window.innerHeight && rect.bottom > 0) {
+                // Calculate relative scroll
+                const offset = scrolled * speed;
+
+                if (direction === 'up')
+                    element.style.transform = `translateY(-${offset}px)`;
+                if (direction === 'down')
+                    element.style.transform = `translateY(${offset}px)`;
+            }
+        });
+    });
+</script>

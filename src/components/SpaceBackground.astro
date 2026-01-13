@@ -1,0 +1,107 @@
+<canvas id="space-canvas" class="absolute inset-0 w-full h-full z-0 opacity-40"></canvas>
+
+<script>
+    const canvas = document.getElementById('space-canvas') as HTMLCanvasElement;
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        
+        canvas.width = width;
+        canvas.height = height;
+
+        const stars: Star[] = [];
+        const numStars = 100;
+
+        interface Star {
+            x: number;
+            y: number;
+            vx: number;
+            vy: number;
+            size: number;
+        }
+
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: Math.random() * 2
+            });
+        }
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+
+            const connectDistance = 150;
+            const mouseDistance = 200;
+
+            stars.forEach((star, i) => {
+                // Move
+                star.x += star.vx;
+                star.y += star.vy;
+
+                // Bounce
+                if (star.x < 0 || star.x > width) star.vx *= -1;
+                if (star.y < 0 || star.y > height) star.vy *= -1;
+
+                // Draw Star
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+
+                // Connect to Mouse
+                const dxMouse = star.x - mouseX;
+                const dyMouse = star.y - mouseY;
+                const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                
+                if (distMouse < mouseDistance) {
+                     ctx.beginPath();
+                     ctx.moveTo(star.x, star.y);
+                     ctx.lineTo(mouseX, mouseY);
+                     ctx.strokeStyle = `rgba(99, 102, 241, ${1 - distMouse / mouseDistance})`;
+                     ctx.stroke();
+                }
+
+                // Connect to other stars
+                for (let j = i + 1; j < stars.length; j++) {
+                    const other = stars[j];
+                    const dx = star.x - other.x;
+                    const dy = star.y - other.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < connectDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(star.x, star.y);
+                        ctx.lineTo(other.x, other.y);
+                        // Opacity based on distance
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${(1 - dist / connectDistance) * 0.1})`;
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        });
+    }
+</script>

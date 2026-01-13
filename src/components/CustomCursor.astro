@@ -1,0 +1,53 @@
+<div class="custom-cursor fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] mix-blend-screen opacity-0 transition-opacity duration-300">
+    <div class="absolute inset-0 bg-primary-500 rounded-full blur-md animate-pulse"></div>
+    <div class="absolute inset-0 bg-white rounded-full blur-[2px] opacity-50"></div>
+</div>
+
+<div class="cursor-trailer fixed top-0 left-0 w-24 h-24 rounded-full pointer-events-none z-[9998] border border-primary-500/30 opacity-0 transition-opacity duration-500 ease-out"></div>
+
+<script>
+    const cursor = document.querySelector('.custom-cursor') as HTMLElement;
+    const trailer = document.querySelector('.cursor-trailer') as HTMLElement;
+    
+    let isVisible = false;
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isVisible) {
+            cursor.style.opacity = '1';
+            trailer.style.opacity = '1';
+            isVisible = true;
+        }
+
+        const x = e.clientX;
+        const y = e.clientY;
+
+        // Instant movement for main cursor
+        cursor.style.transform = `translate(${x - 16}px, ${y - 16}px)`;
+        
+        // Delayed/Smooth movement for trailer
+        trailer.animate({
+            transform: `translate(${x - 48}px, ${y - 48}px)`
+        }, { duration: 500, fill: 'forwards' });
+    });
+
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        trailer.style.opacity = '0';
+        isVisible = false;
+    });
+    
+    // Add hover effect for links/buttons
+    const interactiveElements = document.querySelectorAll('a, button, .cursor-pointer');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform = `scale(1.5) translate(${cursor.getBoundingClientRect().x}px, ${cursor.getBoundingClientRect().y}px)`;
+            trailer.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+            trailer.style.backgroundColor = 'rgba(99, 102, 241, 0.1)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = `scale(1) translate(${cursor.getBoundingClientRect().x}px, ${cursor.getBoundingClientRect().y}px)`;
+            trailer.style.borderColor = 'rgba(99, 102, 241, 0.3)';
+            trailer.style.backgroundColor = 'transparent';
+        });
+    });
+</script>

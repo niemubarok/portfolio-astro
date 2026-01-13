@@ -1,0 +1,41 @@
+---
+const currentYear = new Date().getFullYear();
+import siteData from '../data/site.json';
+---
+
+<footer class="bg-dark-surface border-t border-dark-border mt-20">
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
+      <div>
+        <h3 class="text-xl font-bold font-display text-white mb-2">{siteData.site_name}</h3>
+        <p class="text-slate-400 text-sm max-w-xs">{siteData.site_tagline}</p>
+      </div>
+      
+      <div class="flex space-x-6">
+        {siteData.social.github && (
+          <a href={siteData.social.github} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors">
+            <span class="sr-only">GitHub</span>
+            <i class="devicon-github-plain text-2xl"></i>
+          </a>
+        )}
+        {siteData.social.linkedin && (
+          <a href={siteData.social.linkedin} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors">
+            <span class="sr-only">LinkedIn</span>
+            <i class="devicon-linkedin-plain text-2xl"></i>
+          </a>
+        )}
+        {siteData.social.twitter && (
+          <a href={siteData.social.twitter} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors">
+            <span class="sr-only">Twitter</span>
+            <i class="devicon-twitter-original text-2xl"></i>
+          </a>
+        )}
+      </div>
+    </div>
+    <div class="mt-8 border-t border-dark-border pt-8 text-center">
+      <p class="text-slate-500 text-sm">
+        &copy; {currentYear} {siteData.profile.name}. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

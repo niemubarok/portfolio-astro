@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Sarah Johnson",
+    "position": "CTO",
+    "company": "TechCorp Solutions",
+    "content": "John delivered exceptional work on our e-commerce platform. His attention to detail and problem-solving skills are outstanding. Highly recommended!",
+    "rating": 5,
+    "order": 1
+  },
+  {
+    "name": "Michael Chen",
+    "position": "Product Manager",
+    "company": "StartupX",
+    "content": "Working with John was a pleasure. He understood our requirements perfectly and delivered a high-quality product ahead of schedule.",
+    "rating": 5,
+    "order": 2
+  },
+  {
+    "name": "Emily Rodriguez",
+    "position": "Founder",
+    "company": "DesignHub",
+    "content": "John's technical expertise and communication skills made our project a success. He's a true professional who cares about quality.",
+    "rating": 5,
+    "order": 3
+  },
+  {
+    "name": "David Kim",
+    "position": "Engineering Lead",
+    "company": "CloudNine Inc.",
+    "content": "Excellent developer with deep knowledge of Laravel and modern JavaScript frameworks. John consistently delivers clean, maintainable code.",
+    "rating": 4,
+    "order": 4
+  }
+]

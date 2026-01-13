@@ -1,0 +1,93 @@
+[
+  {
+    "name": "HTML/CSS",
+    "icon": "devicon-html5-plain",
+    "proficiency": 95,
+    "category": "frontend",
+    "order": 1
+  },
+  {
+    "name": "JavaScript",
+    "icon": "devicon-javascript-plain",
+    "proficiency": 90,
+    "category": "frontend",
+    "order": 2
+  },
+  {
+    "name": "Vue.js",
+    "icon": "devicon-vuejs-plain",
+    "proficiency": 85,
+    "category": "frontend",
+    "order": 3
+  },
+  {
+    "name": "React",
+    "icon": "devicon-react-original",
+    "proficiency": 80,
+    "category": "frontend",
+    "order": 4
+  },
+  {
+    "name": "Tailwind CSS",
+    "icon": "devicon-tailwindcss-plain",
+    "proficiency": 90,
+    "category": "frontend",
+    "order": 5
+  },
+  {
+    "name": "PHP",
+    "icon": "devicon-php-plain",
+    "proficiency": 95,
+    "category": "backend",
+    "order": 1
+  },
+  {
+    "name": "Laravel",
+    "icon": "devicon-laravel-plain",
+    "proficiency": 95,
+    "category": "backend",
+    "order": 2
+  },
+  {
+    "name": "Node.js",
+    "icon": "devicon-nodejs-plain",
+    "proficiency": 75,
+    "category": "backend",
+    "order": 3
+  },
+  {
+    "name": "MySQL",
+    "icon": "devicon-mysql-plain",
+    "proficiency": 90,
+    "category": "backend",
+    "order": 5
+  },
+  {
+    "name": "PostgreSQL",
+    "icon": "devicon-postgresql-plain",
+    "proficiency": 85,
+    "category": "backend",
+    "order": 6
+  },
+  {
+    "name": "Docker",
+    "icon": "devicon-docker-plain",
+    "proficiency": 80,
+    "category": "devops",
+    "order": 1
+  },
+  {
+    "name": "AWS",
+    "icon": "devicon-amazonwebservices-plain",
+    "proficiency": 70,
+    "category": "devops",
+    "order": 2
+  },
+  {
+    "name": "Git",
+    "icon": "devicon-git-plain",
+    "proficiency": 90,
+    "category": "tools",
+    "order": 1
+  }
+]

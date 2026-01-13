@@ -1,0 +1,24 @@
+{
+  "site_name": "Mubarok Portfolio",
+  "site_tagline": "Fullstack Developer",
+  "profile": {
+    "name": "Husni Mubarok",
+    "title": "Fullstack Developer",
+    "bio": "Passionate developer with 5+ years of experience building modern web and desktop applications. Specialized in Laravel, Vue.js, and cloud technologies.",
+    "avatar": "/images/settings/avatar.png",
+    "years_experience": 5,
+    "projects_completed": 50,
+    "happy_clients": 30
+  },
+  "contact": {
+    "email": "hello@husnimubarok.dev",
+    "phone": "+62 812 3456 7890",
+    "address": "Jakarta, Indonesia"
+  },
+  "social": {
+    "github": "https://github.com/husnimubarok",
+    "linkedin": "https://linkedin.com/in/husnimubarok",
+    "twitter": "https://twitter.com/husnimubarok",
+    "instagram": null
+  }
+}

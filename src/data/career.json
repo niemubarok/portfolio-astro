@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "role": "Freelance Full-Stack Developer",
+    "company": "Self-Employed",
+    "period": "2020 - Present",
+    "description": "Delivered end-to-end web applications for multiple clients, including contract management systems, admin dashboards, tourism platforms, and WordPress e-commerce solutions. Handled system architecture, API integration, and deployment.",
+    "stack": ["Laravel", "AdonisJS", "Vue.js", "TypeScript", "CouchDB", "WordPress", "Docker"],
+    "highlight": true
+    
+  },
+  {
+    "id": 2,
+    "role": "IT Technician / Software Engineer",
+    "company": "PT Sinergi Informatika Semen Indonesia",
+    "period": "2024 - Present",
+    "description": "Provided IT technical support while also designing, developing, and deploying internal web applications. Responsible for system troubleshooting, infrastructure support, and full-stack web development to support internal operational workflows.",
+    "stack": [ "Vue.js", "Node.js", "NoSQL", "Docker"],
+    "highlight": true
+  },
+  {
+    "id": 3,
+    "role": "IT & Software Engineer",
+    "company": "Ali Sibroh Malisi Hospital",
+    "period": "2020 - 2023",
+    "description": "Developed, supported, and optimized Hospital Information Systems (SIMRS). Built internal applications including chatbot for patient registration and medication stock opname. Managed hospital IT infrastructure, network installation, troubleshooting, and IT asset management in a mission-critical healthcare environment.",
+    "stack": ["Vue.js", "Laravel", "Node.js", "MySQL", "Docker", "Networking"],
+    "highlight": true
+  },
+  {
+    "id": 4,
+    "role": "IT Support & Computer Lab Administrator",
+    "company": "Almanar Azhari Islamic Boarding School",
+    "period": "2013 - 2014",
+    "description": "Managed and maintained computer lab infrastructure. Provided IT support for academic and administrative systems. Developed hands-on IT learning modules and taught basic IT and application usage to students.",
+    "stack": ["Windows", "Networking", "Hardware Support", "Basic Web"],
+    "highlight": false
+  },
+  {
+    "id": 5,
+    "role": "Computer Technician",
+    "company": "Kallyana Computer",
+    "period": "2012 - 2013",
+    "description": "Diagnosed and repaired hardware and software issues, installed operating systems and applications, assembled custom desktop PCs, and provided technical support and recommendations to customers.",
+    "stack": ["Hardware Troubleshooting", "Windows", "PC Assembly"],
+    "highlight": false
+  }
+]

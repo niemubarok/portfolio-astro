@@ -1,0 +1,66 @@
+---
+import skills from '../data/skills.json';
+
+const orbitingSkills = skills.slice(0, 5); // Take top 5 for the orbit
+---
+
+<div
+    class="relative w-full max-w-[500px] aspect-square flex items-center justify-center"
+>
+    <!-- Center Core -->
+    <div
+        class="absolute w-24 h-24 bg-primary-600/20 rounded-full blur-xl animate-pulse"
+    >
+    </div>
+    <div
+        class="relative z-10 w-20 h-20 bg-dark-surface/80 backdrop-blur-md rounded-full border border-primary-500/30 flex items-center justify-center shadow-neon"
+    >
+        <span class="text-3xl">⚛️</span>
+    </div>
+
+    <!-- Orbit Rings -->
+    <div
+        class="absolute w-[60%] h-[60%] border border-white/5 rounded-full animate-[spin_10s_linear_infinite]"
+    >
+    </div>
+    <div
+        class="absolute w-[90%] h-[90%] border border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]"
+    >
+    </div>
+
+    <!-- Orbiting Items -->
+    {
+        orbitingSkills.map((skill, index) => {
+            const angle = (index / orbitingSkills.length) * 2 * Math.PI;
+            const radius = 160; // Distance from center
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+
+            return (
+                <div
+                    class="absolute z-20"
+                    style={`transform: translate(${x}px, ${y}px);`}
+                >
+                    <div
+                        class="w-12 h-12 bg-dark-surface border border-white/10 rounded-full flex items-center justify-center shadow-lg hover:scale-125 transition-transform duration-300 cursor-pointer animate-float"
+                        style={`animation-delay: ${index * 0.5}s;`}
+                        title={skill.name}
+                    >
+                        <i class={`${skill.icon} text-xl text-primary-300`} />
+                    </div>
+                </div>
+            );
+        })
+    }
+</div>
+
+<style>
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>

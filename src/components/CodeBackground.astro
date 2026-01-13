@@ -1,0 +1,155 @@
+---
+// CodeBackground.astro
+const lineCount = 40;
+const colors = [
+    'bg-blue-500',
+    'bg-pink-500',
+    'bg-green-500',
+    'bg-yellow-500',
+    'bg-purple-500',
+    'bg-cyan-500',
+];
+---
+
+<div
+    class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0 opacity-25 transform -ske-y-6"
+>
+    <div
+        class="code-container font-mono text-sm leading-relaxed p-10 flex flex-col gap-1 transform -rotate-[5deg] scale-110 origin-top-left opacity-30"
+    >
+        {
+            Array.from({ length: lineCount }).map((_, i) => {
+                const indentLevel = Math.floor(Math.random() * 3); // 0-2 indentation levels
+                const indent = `${indentLevel * 1.5}rem`;
+
+                // Mock tokens for variety
+                const keywords = [
+                    'const',
+                    'import',
+                    'export',
+                    'return',
+                    'function',
+                    'async',
+                    'await',
+                    'if',
+                    'else',
+                ];
+                const types = [
+                    'String',
+                    'Number',
+                    'Boolean',
+                    'void',
+                    'Promise',
+                    'React.FC',
+                ];
+                const funcs = [
+                    'handleClick',
+                    'fetchData',
+                    'init',
+                    'render',
+                    'map',
+                    'filter',
+                    'useEffect',
+                ];
+                const vars = [
+                    'data',
+                    'user',
+                    'response',
+                    'result',
+                    'isActive',
+                    'config',
+                    'props',
+                ];
+
+                // Randomly generate a "line of code"
+                const keyword =
+                    keywords[Math.floor(Math.random() * keywords.length)];
+                const type = types[Math.floor(Math.random() * types.length)];
+                const func = funcs[Math.floor(Math.random() * funcs.length)];
+                const variable = vars[Math.floor(Math.random() * vars.length)];
+                const isBlank = Math.random() > 0.85;
+
+                if (isBlank) return <div class="h-5" />;
+
+                // Randomized Line Types
+                const lineType = Math.random();
+
+                return (
+                    <div
+                        class="flex items-center gap-2 whitespace-nowrap"
+                        style={{ marginLeft: indent }}
+                    >
+                        {/* Line Number (optional, maybe too cluttered) */}
+                        {/* <span class="text-slate-700 select-none mr-2">{i + 1}</span> */}
+
+                        {lineType < 0.3 && (
+                            <>
+                                <span class="text-pink-500">{keyword}</span>
+                                <span class="text-blue-400">{variable}</span>
+                                <span class="text-white">=</span>
+                                <span class="text-yellow-400">{func}</span>
+                                <span class="text-purple-400">()</span>
+                                <span class="text-slate-500">;</span>
+                            </>
+                        )}
+                        {lineType >= 0.3 && lineType < 0.6 && (
+                            <>
+                                <span class="text-blue-500">{func}</span>
+                                <span class="text-yellow-600">(</span>
+                                <span class="text-orange-400">
+                                    '{variable}'
+                                </span>
+                                <span class="text-yellow-600">)</span>
+                                <span class="text-slate-500">;</span>
+                            </>
+                        )}
+                        {lineType >= 0.6 && lineType < 0.8 && (
+                            <>
+                                <span class="text-pink-500">return</span>
+                                <span class="text-blue-400 block-tag">
+                                    &lt;{type} /&gt;
+                                </span>
+                                <span class="text-slate-500">;</span>
+                            </>
+                        )}
+                        {lineType >= 0.8 && (
+                            <span class="text-green-600">
+                                // TODO: {func} implementation
+                            </span>
+                        )}
+                    </div>
+                );
+            })
+        }
+    </div>
+
+    <!-- Floating "Snippets" - More defined code blocks -->
+    <div
+        class="absolute top-1/4 right-0 w-[400px] h-[300px] opacity-10 blur-md bg-gradient-to-br from-blue-900/50 to-transparent rounded-xl border border-blue-500/20 p-6 flex flex-col gap-2 transform rotate-[10deg]"
+    >
+        <div class="w-1/3 h-2 bg-pink-500 rounded-full mb-2"></div>
+        <div class="w-2/3 h-2 bg-blue-400 rounded-full ml-4"></div>
+        <div class="w-1/2 h-2 bg-yellow-400 rounded-full ml-4 mb-2"></div>
+        <div class="w-3/4 h-2 bg-green-400 rounded-full ml-8"></div>
+        <div class="w-1/4 h-2 bg-white/50 rounded-full ml-4"></div>
+    </div>
+</div>
+
+<style>
+    .code-container {
+        /* Subtle animation */
+        animation: float-code 20s infinite linear;
+    }
+
+    @keyframes float-code {
+        0% {
+            transform: translateY(0) rotate(-5deg) scale(1.1);
+        }
+        50% {
+            transform: translateY(-50px) rotate(-5deg) scale(1.1);
+        }
+        100% {
+            transform: translateY(0) rotate(-5deg) scale(1.1);
+        }
+    }
+</style>

@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+import CustomCursor from '../components/CustomCursor.astro';
+
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const { title, description = 'Husni Mubarok - Fullstack Developer Portfolio' } =
+    Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+        <title>{title}</title>
+    </head>
+    <body
+        class="bg-dark-bg text-slate-300 font-sans antialiased selection:bg-primary-500/30 selection:text-primary-200 cursor-none"
+    >
+        <CustomCursor />
+        <div
+            class="fixed inset-0 z-[-1] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+        >
+        </div>
+
+        <slot />
+        <script>
+            import VanillaTilt from 'vanilla-tilt';
+            import AOS from 'aos';
+            import 'aos/dist/aos.css';
+
+            document.addEventListener('astro:page-load', () => {
+                // Initialize VanillaTilt
+                const elements = document.querySelectorAll('[data-tilt]');
+                if (elements.length > 0) {
+                    VanillaTilt.init(Array.from(elements) as HTMLElement[], {
+                        speed: 400,
+                        glare: true,
+                        'max-glare': 0.3,
+                    });
+                }
+
+                // Initialize AOS
+                AOS.init({
+                    duration: 1000,
+                    once: true,
+                    offset: 100,
+                    easing: 'ease-out-cubic',
+                });
+            });
+
+            // Initial load fallback
+            const elements = document.querySelectorAll('[data-tilt]');
+            if (elements.length > 0) {
+                VanillaTilt.init(Array.from(elements) as HTMLElement[], {
+                    speed: 400,
+                    glare: true,
+                    'max-glare': 0.3,
+                });
+            }
+            // Initial AOS
+            import 'aos/dist/aos.css';
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 50,
+            });
+
+            // Simple Parallax
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const backgrounds = document.querySelectorAll(
+                    '.fixed.inset-0.z-\\[-1\\]',
+                );
+                backgrounds.forEach((bg) => {
+                    if (bg instanceof HTMLElement) {
+                        const speed = 0.5;
+                        bg.style.transform = `translateY(${scrolled * speed}px)`;
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,424 @@
+---
+import siteData from '../data/site.json';
+---
+
+<!-- Lanyard Anchor Point (Top Center of Screen/Container) -->
+<div
+    id="card-anchor"
+    class="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-transparent z-50"
+>
+</div>
+
+<!-- Dynamic Lanyard String (Canvas or SVG line) -->
+<svg
+    class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-visible"
+    id="lanyard-svg"
+    style="z-index: 0;"
+>
+    <line
+        id="lanyard-string"
+        x1="50%"
+        y1="0"
+        x2="50%"
+        y2="50%"
+        stroke="rgba(255,255,255,0.4)"
+        stroke-width="2"></line>
+</svg>
+
+<div
+    id="id-card-wrapper"
+    class="relative group w-full max-w-[340px] aspect-[34/54] h-auto cursor-grab active:cursor-grabbing mt-8 lg:mt-16 mx-auto select-none touch-none"
+    style="perspective: 1000px;"
+>
+    <!-- The Physics Card Container -->
+    <div
+        id="physics-card"
+        class="relative w-full h-full transform-style-3d will-change-transform"
+    >
+        <!-- Ambient Glow -->
+        <div
+            class="absolute -inset-4 bg-gradient-to-br from-primary-600/20 via-blue-600/10 to-purple-600/20 rounded-[2rem] blur-2xl opacity-40 group-hover:opacity-70 transition duration-700"
+        >
+        </div>
+
+        <!-- The Clip -->
+        <div
+            class="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-8 bg-dark-bg/90 border border-white/20 rounded-full z-10 flex items-center justify-center transform-style-3d translate-z-10 shadow-lg"
+        >
+            <div class="w-16 h-1.5 bg-white/20 rounded-full"></div>
+        </div>
+
+        <!-- Main Card Body -->
+        <div
+            class="relative w-full h-full bg-dark-bg/60 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden transform-style-3d flex flex-col items-center py-10 px-6"
+        >
+            <!-- Top Gradient Strip -->
+            <div
+                class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 via-yellow-200 to-cyan-400 z-20 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+            >
+            </div>
+
+            <!-- Subtle Grain Overlay -->
+            <div
+                class="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E');"
+            >
+            </div>
+
+            <!-- Glare Effect (Custom) -->
+            <div
+                id="card-glare"
+                class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/0 to-white/10 opacity-0 pointer-events-none z-50 rounded-2xl mix-blend-overlay transition-opacity duration-100"
+            >
+            </div>
+
+            <!-- Avatar -->
+            <div
+                class="relative w-28 h-28 mb-6 mt-2 transform-style-3d translate-z-30 pointer-events-none"
+            >
+                <div
+                    class="absolute -inset-1 rounded-full bg-gradient-to-br from-white/20 to-white/0 blur-sm"
+                >
+                </div>
+                <img
+                    src={siteData.profile.avatar}
+                    alt={siteData.profile.name}
+                    class="relative w-full h-full rounded-full object-cover border-2 border-white/10 shadow-lg"
+                    draggable="false"
+                />
+            </div>
+
+            <!-- Identity -->
+            <div
+                class="text-center transform-style-3d translate-z-20 mb-6 pointer-events-none"
+            >
+                <h2
+                    class="text-2xl font-display font-bold text-white mb-1 tracking-tight"
+                >
+                    {siteData.profile.name}
+                </h2>
+                <p
+                    class="text-xs font-medium text-primary-300 tracking-wide uppercase opacity-90"
+                >
+                    {siteData.profile.title}
+                </p>
+            </div>
+
+            <!-- Bio Section -->
+            <div
+                class="transform-style-3d translate-z-10 mb-8 px-2 pointer-events-none"
+            >
+                <p
+                    class="text-sm text-slate-300 text-center leading-relaxed font-light italic"
+                >
+                    "{siteData.profile.bio}"
+                </p>
+            </div>
+
+            <!-- Divider -->
+            <div
+                class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6"
+            >
+            </div>
+
+            <!-- Stats Grid -->
+            <div
+                class="grid grid-cols-2 gap-4 w-full transform-style-3d translate-z-10 pointer-events-none"
+            >
+                <div>
+                    <div
+                        class="text-center p-3 rounded-xl bg-white/5 border border-white/5"
+                    >
+                        <span class="block text-xl font-bold text-white mb-0.5"
+                            >{siteData.profile.years_experience}+</span
+                        >
+                        <span
+                            class="text-[9px] uppercase tracking-widest text-slate-400"
+                            >Experience</span
+                        >
+                    </div>
+                </div>
+                <div>
+                    <div
+                        class="text-center p-3 rounded-xl bg-white/5 border border-white/5"
+                    >
+                        <span class="block text-xl font-bold text-white mb-0.5"
+                            >{siteData.profile.projects_completed}</span
+                        >
+                        <span
+                            class="text-[9px] uppercase tracking-widest text-slate-400"
+                            >Projects</span
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Branding/Footer -->
+            <div class="mt-auto pt-6 opacity-30 pointer-events-none">
+                <span class="text-[10px] font-mono tracking-[0.3em] uppercase"
+                    >Verified ID</span
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    class PhysicsCard {
+        container!: HTMLElement | null;
+        card!: HTMLElement | null;
+        anchor!: HTMLElement | null;
+        lanyardLine!: HTMLElement | null;
+        glare!: HTMLElement | null;
+        state!: {
+            pos: { x: number; y: number };
+            vel: { x: number; y: number };
+            target: { x: number; y: number };
+            rot: { x: number; y: number };
+            isDragging: boolean;
+            dragOffset: { x: number; y: number };
+        };
+        config!: {
+            spring: number;
+            damping: number;
+            dragLag: number;
+            tiltSensitivity: number;
+        };
+
+        constructor() {
+            this.container = document.getElementById(
+                'id-card-wrapper',
+            ) as HTMLElement;
+            this.card = document.getElementById('physics-card') as HTMLElement;
+            this.anchor = document.getElementById('card-anchor') as HTMLElement;
+            this.lanyardLine = document.getElementById(
+                'lanyard-string',
+            ) as HTMLElement;
+            this.glare = document.getElementById('card-glare') as HTMLElement;
+
+            if (!this.container || !this.card) return;
+
+            // Physics State - Start "dropped" from above with a bit of swing
+            this.state = {
+                pos: { x: 0, y: -1000 }, // Start above viewport
+                vel: { x: (Math.random() - 0.5) * 50, y: 0 }, // Random sway velocity
+                target: { x: 0, y: 0 },
+                rot: { x: 0, y: 0 },
+                isDragging: false,
+                dragOffset: { x: 0, y: 0 },
+            };
+
+            // Configuration
+            this.config = {
+                spring: 0.1, // Strength of return force (0.01 - 0.5)
+                damping: 0.85, // Friction (0.8 - 0.99) - lower stops faster
+                dragLag: 0.15, // How "heavy" the card feels when dragging
+                tiltSensitivity: 15, // scales rotation
+            };
+
+            this.init();
+        }
+
+        init() {
+            if (!this.container) return;
+
+            // Bind Events
+            this.container.addEventListener(
+                'mousedown',
+                this.onStart.bind(this),
+            );
+            this.container.addEventListener(
+                'touchstart',
+                this.onStart.bind(this),
+                { passive: false },
+            );
+
+            window.addEventListener('mousemove', this.onMove.bind(this));
+            window.addEventListener('touchmove', this.onMove.bind(this), {
+                passive: false,
+            });
+
+            window.addEventListener('mouseup', this.onEnd.bind(this));
+            window.addEventListener('touchend', this.onEnd.bind(this));
+
+            // Start Loop
+            this.animate();
+        }
+
+        onStart(e: any) {
+            this.state.isDragging = true;
+            if (this.container) {
+                this.container.style.cursor = 'grabbing';
+                this.container.style.transition = 'none'; // Disable CSS transitions for physics
+
+                // Calculate offset to prevent snapping to center
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+                // Get current screen center of the wrapper (anchor point for drag)
+                const rect = this.container.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                this.state.dragOffset.x = clientX - centerX - this.state.pos.x;
+                this.state.dragOffset.y = clientY - centerY - this.state.pos.y;
+            }
+        }
+
+        onMove(e: any) {
+            if (!this.state.isDragging) return;
+            // Prevent scrolling on mobile
+            if (e.type === 'touchmove') e.preventDefault();
+
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            if (this.container) {
+                const rect = this.container.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                // Set target position relative to center
+                this.state.target.x =
+                    clientX - centerX - this.state.dragOffset.x;
+                this.state.target.y =
+                    clientY - centerY - this.state.dragOffset.y;
+            }
+        }
+
+        onEnd() {
+            this.state.isDragging = false;
+            if (this.container) {
+                this.container.style.cursor = 'grab';
+            }
+        }
+
+        updatePhysics() {
+            if (this.state.isDragging) {
+                // Dragging Dynamics (Lag)
+                const dx = this.state.target.x - this.state.pos.x;
+                const dy = this.state.target.y - this.state.pos.y;
+
+                this.state.vel.x = dx * this.config.dragLag;
+                this.state.vel.y = dy * this.config.dragLag;
+
+                this.state.pos.x += this.state.vel.x;
+                this.state.pos.y += this.state.vel.y;
+
+                // Tilt based on velocity (sway while dragging)
+                // When moving RIGHT (vel.x > 0), rotate Y POSITIVE (visualize card trailing) - wait no
+                // If moving Right, card trails left, so Leading edge (Right) comes forward?
+                // Actually trailing edge goes back.
+
+                // Let's map Velocity to Rotation
+                // Vel X -> Rot Y
+                // Vel Y -> Rot X
+                this.state.rot.y = Math.max(
+                    -45,
+                    Math.min(45, this.state.vel.x * 2),
+                );
+                this.state.rot.x = Math.max(
+                    -45,
+                    Math.min(45, -this.state.vel.y * 2),
+                );
+            } else {
+                // Release Dynamics (Spring/One with Gravity/Pendulum-ish)
+
+                // Continuous Float / Hover Effect
+                const t = Date.now();
+                // Gentle figure-8 or orbital float pattern
+                const hoverX = Math.sin(t / 2000) * 10;
+                const hoverY = Math.cos(t / 1500) * 10;
+
+                // Force towards Hover Target instead of 0,0
+                const forceX = (hoverX - this.state.pos.x) * this.config.spring;
+                const forceY = (hoverY - this.state.pos.y) * this.config.spring;
+
+                // Apply Force to Velocity
+                this.state.vel.x += forceX;
+                this.state.vel.y += forceY;
+
+                // Apply Damping
+                this.state.vel.x *= this.config.damping;
+                this.state.vel.y *= this.config.damping;
+
+                // Update Position
+                this.state.pos.x += this.state.vel.x;
+                this.state.pos.y += this.state.vel.y;
+
+                // Rotation simulates sway + continuous breath
+                // Add a little extra "breathing" rotation
+                this.state.rot.x =
+                    -this.state.pos.y * 0.15 + Math.sin(t / 1500) * 2;
+                this.state.rot.y =
+                    this.state.pos.x * 0.15 + Math.cos(t / 2000) * 2;
+            }
+        }
+
+        updateVisuals() {
+            // Apply Transform
+            const { x, y } = this.state.pos;
+            const { x: rx, y: ry } = this.state.rot;
+
+            if (this.card) {
+                this.card.style.transform = `
+                    translate3d(${x}px, ${y}px, 0) 
+                    rotateX(${rx}deg) 
+                    rotateY(${ry}deg)
+                `;
+            }
+
+            // Glare Logic
+            if (this.glare) {
+                const glareX = 50 + this.state.pos.x / 5;
+                const glareY = 50 + this.state.pos.y / 5;
+
+                this.glare.style.backgroundPosition = `${glareX}% ${glareY}%`;
+                // Simplified glare based on tilt
+                this.glare.style.opacity = (
+                    ((Math.abs(rx) + Math.abs(ry)) / 100) *
+                    0.5
+                ).toString();
+            }
+
+            // Lanyard Update
+            // Draw line from Anchor (Top Center) to Card (Top Center)
+            // Coordinates must be relative to the SVG itself
+
+            if (this.anchor && this.card && this.lanyardLine) {
+                // Get absolute viewport coordinates
+                const anchorRect = this.anchor.getBoundingClientRect();
+                const cardRect = this.card.getBoundingClientRect();
+
+                // Get the SVG's own coordinates (it might be offset if inside a relative container)
+                const svgRect = this.lanyardLine.parentElement
+                    ? this.lanyardLine.parentElement.getBoundingClientRect()
+                    : { left: 0, top: 0 };
+
+                // Calculate positions relative to the SVG
+                const anchorX =
+                    anchorRect.left + anchorRect.width / 2 - svgRect.left;
+                const anchorY = anchorRect.top - svgRect.top;
+
+                const cardTopX =
+                    cardRect.left + cardRect.width / 2 - svgRect.left;
+                const cardTopY = cardRect.top + 20 - svgRect.top; // +20 for clip offset
+
+                this.lanyardLine.setAttribute('x1', anchorX.toString());
+                this.lanyardLine.setAttribute('y1', '-1000'); // Start from way above screen
+                this.lanyardLine.setAttribute('x2', cardTopX.toString());
+                this.lanyardLine.setAttribute('y2', cardTopY.toString());
+            }
+        }
+
+        animate() {
+            this.updatePhysics();
+            this.updateVisuals();
+            requestAnimationFrame(this.animate.bind(this));
+        }
+    }
+
+    // Initialize
+    document.addEventListener('astro:page-load', () => new PhysicsCard());
+    document.addEventListener('DOMContentLoaded', () => new PhysicsCard());
+</script>
