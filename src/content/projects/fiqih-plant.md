@@ -1,6 +1,6 @@
 ---
-title: "Fiqih Plant - WordPress E-commerce Platform"
-description: "E-commerce website built on WordPress and WooCommerce with full shopping cart, checkout system, and PayPal payment gateway integration."
+title: "Fiqih Plant - E-commerce"
+description: "WooCommerce storefront and web application work for an e-commerce platform."
 is_featured: true
 tech_stack: ["WordPress", "WooCommerce", "PHP", "JavaScript"]
 demo_url: null

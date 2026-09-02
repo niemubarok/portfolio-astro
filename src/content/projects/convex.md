@@ -6,5 +6,5 @@ tech_stack: ["WEB", "NEXTJS", "TypeScript"]
 demo_url: "https://minerba-convex.vercel.app/"
 github_url: "https://github.com/niemubarok/convex"
 thumbnail: "/projects/thumbnails/convex.png"
-order: 1
+order: 3
 ---

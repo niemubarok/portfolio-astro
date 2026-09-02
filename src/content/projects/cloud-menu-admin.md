@@ -1,6 +1,6 @@
 ---
-title: "Cloud Menu Admin Dashboard"
-description: "Admin dashboard for managing menu items in a cloud-based menu system. Focused on usability and operational efficiency. Private repository."
+title: "Cloud Menu Admin"
+description: "Vue.js administrative dashboard for operational management workflows."
 is_featured: false
 tech_stack: ["Vue.js"]
 demo_url: null

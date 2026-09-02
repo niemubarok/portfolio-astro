@@ -1,34 +1,34 @@
 [
   {
-    "name": "Sarah Johnson",
-    "position": "CTO",
-    "company": "TechCorp Solutions",
-    "content": "John delivered exceptional work on our e-commerce platform. His attention to detail and problem-solving skills are outstanding. Highly recommended!",
+    "name": "Dewi",
+    "position": "Product Owner",
+    "company": "PT. Solusi Bangun Beton",
+    "content": "Husni ngerjain Mixsure untuk kami, hasilnya bagus banget. Dia ngerti apa yang kita butuh dari sisi konstruksi dan delivery-nya tepat sasaran. Dia juga enak diajak komunikasi dan selalu siap dengar masukan dari kami.",
     "rating": 5,
     "order": 1
   },
   {
-    "name": "Michael Chen",
-    "position": "Product Manager",
-    "company": "StartupX",
-    "content": "Working with John was a pleasure. He understood our requirements perfectly and delivered a high-quality product ahead of schedule.",
+    "name": "Fauzan",
+    "position": "Product Owner",
+    "company": "Jakarta Design Center",
+    "content": "Nggak cuma coding, tapi juga ngasih ide buat bikin sistemnya lebih bagus. Sistemnya mantap, tepat waktu, dan hasilnya benar-benar berkualitas.",
     "rating": 5,
     "order": 2
   },
   {
-    "name": "Emily Rodriguez",
-    "position": "Founder",
-    "company": "DesignHub",
-    "content": "John's technical expertise and communication skills made our project a success. He's a true professional who cares about quality.",
+    "name": "Ahmad Zia",
+    "position": "Product Owner",
+    "company": "Sagha Creative Inovasi",
+    "content": "Platform Sagha News yang Husni kerjain udah bantu kami banget buat share konten. Dia cepat respon, teliti dalam kerjaan, dan selalu siap cari jalan terbaik kalo ada masalah.",
     "rating": 5,
     "order": 3
   },
   {
-    "name": "David Kim",
-    "position": "Engineering Lead",
-    "company": "CloudNine Inc.",
-    "content": "Excellent developer with deep knowledge of Laravel and modern JavaScript frameworks. John consistently delivers clean, maintainable code.",
-    "rating": 4,
+    "name": "Andi",
+    "position": "Product Owner",
+    "company": "PT Solusi Bangun Indonesia",
+    "content": "Husni bikin aplikasi Tax Sheet dengan hasil yang memuaskan. Dia bikinnya user-friendly banget.komunikasi oke dan sangat profesional dalam handle project.",
+    "rating": 5,
     "order": 4
   }
 ]
