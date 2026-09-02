@@ -129,7 +129,7 @@ const { projects } = Astro.props;
                     const paddedIndex = String(index + 1).padStart(2, '0');
                     return (
                         <article
-                            class="spatial-card absolute w-[88vw] max-w-[340px] sm:max-w-[400px] md:max-w-[460px] h-[440px] sm:h-[480px] md:h-[510px] rounded-[28px] transform-style-3d cursor-pointer transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                            class="spatial-card absolute w-[88vw] max-w-[340px] sm:max-w-[400px] md:max-w-[460px] h-[440px] sm:h-[480px] md:h-[510px] rounded-[28px] transform-style-3d cursor-pointer transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
                             data-index={index}
                             data-slug={project.slug}
                             style="transform: translate3d(0, 0, -500px) scale(0.6); opacity: 0; pointer-events: none;"
@@ -465,6 +465,8 @@ const { projects } = Astro.props;
             linear-gradient(to bottom, rgba(139, 92, 246, 0.22) 1px, transparent 1px);
         background-size: 40px 40px;
         animation: gridMove 25s linear infinite;
+        will-change: transform;
+        transform: translateZ(0);
     }
 
     :global(.dark) .floor-grid {
@@ -474,8 +476,8 @@ const { projects } = Astro.props;
     }
 
     @keyframes gridMove {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(40px); }
+        0% { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(0, 40px, 0); }
     }
 
     .floor-glow {
@@ -496,11 +498,16 @@ const { projects } = Astro.props;
         background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.4) 0%, rgba(139, 92, 246, 0.25) 40%, transparent 75%);
         filter: blur(25px);
         animation: podiumPulse 4s ease-in-out infinite alternate;
+        will-change: transform;
     }
 
     @keyframes podiumPulse {
         0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
         100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.95; }
+    }
+
+    .spatial-card.is-active-center {
+        filter: drop-shadow(0 20px 40px rgba(6,182,212,0.22));
     }
 
     /* Card Acrylic Chassis Styling */
@@ -862,7 +869,6 @@ const { projects } = Astro.props;
                     card.style.opacity = '1';
                     card.style.zIndex = '35';
                     card.style.pointerEvents = 'auto';
-                    card.style.filter = 'drop-shadow(0 30px 60px rgba(6,182,212,0.22))';
                     card.classList.add('is-active-center');
                 } else if (absOffset === 1) {
                     // Immediate Left / Right Flanking Cards (Angled in 3D perspective)
@@ -875,7 +881,6 @@ const { projects } = Astro.props;
                     card.style.opacity = isMobile ? '0.45' : '0.75';
                     card.style.zIndex = '20';
                     card.style.pointerEvents = 'auto';
-                    card.style.filter = 'drop-shadow(0 15px 30px rgba(0,0,0,0.4)) brightness(0.9)';
                     card.classList.remove('is-active-center');
                 } else if (absOffset === 2) {
                     // Far Outer Cards
@@ -888,7 +893,6 @@ const { projects } = Astro.props;
                     card.style.opacity = isMobile ? '0' : '0.35';
                     card.style.zIndex = '10';
                     card.style.pointerEvents = isMobile ? 'none' : 'auto';
-                    card.style.filter = 'drop-shadow(0 10px 20px rgba(0,0,0,0.5)) brightness(0.7)';
                     card.classList.remove('is-active-center');
                 } else {
                     // Hidden depth-receded cards

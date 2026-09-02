@@ -494,9 +494,13 @@ import siteData from '../data/site.json';
                     this.animFrameId = null;
                     return;
                 }
-                this.updatePhysics();
+                const isMoving = this.updatePhysics();
                 this.updateVisuals();
-                this.animFrameId = requestAnimationFrame(loop);
+                if (isMoving || this.state.isDragging) {
+                    this.animFrameId = requestAnimationFrame(loop);
+                } else {
+                    this.animFrameId = null;
+                }
             };
             this.animFrameId = requestAnimationFrame(loop);
         }
@@ -537,7 +541,7 @@ import siteData from '../data/site.json';
                 this.state.isTouchScroll = false;
             }
 
-            this.state.isDragging = !isTouch; // mouse starts immediately
+            this.state.isDragging = !isTouch;
             if (this.container && !isTouch) {
                 this.container.style.cursor = 'grabbing';
             }
@@ -549,6 +553,7 @@ import siteData from '../data/site.json';
             this.state.dragOffset.y = clientY - this.state.pos.y;
             this.state.target.x = this.state.pos.x;
             this.state.target.y = this.state.pos.y;
+            this.startLoop();
         }
 
         onMove(e: MouseEvent | TouchEvent) {
@@ -567,6 +572,7 @@ import siteData from '../data/site.json';
                     if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 6) {
                         this.state.isTouchSwipe = true;
                         this.state.isDragging = true;
+                        this.startLoop();
                     }
                 }
             }
@@ -587,9 +593,10 @@ import siteData from '../data/site.json';
             if (this.container) {
                 this.container.style.cursor = 'grab';
             }
+            this.startLoop(); // Ensure it springs back to origin before sleeping
         }
 
-        updatePhysics() {
+        updatePhysics(): boolean {
             if (this.state.isDragging) {
                 const dx = this.state.target.x - this.state.pos.x;
                 const dy = this.state.target.y - this.state.pos.y;
@@ -602,13 +609,10 @@ import siteData from '../data/site.json';
 
                 this.state.rot.y = Math.max(-30, Math.min(30, this.state.vel.x * 1.3));
                 this.state.rot.x = Math.max(-30, Math.min(30, -this.state.vel.y * 1.3));
+                return true;
             } else {
-                const t = Date.now();
-                const hoverX = Math.sin(t / 2200) * 10;
-                const hoverY = Math.cos(t / 1700) * 8;
-
-                const forceX = (hoverX - this.state.pos.x) * this.config.spring;
-                const forceY = (hoverY - this.state.pos.y) * this.config.spring;
+                const forceX = -this.state.pos.x * this.config.spring;
+                const forceY = -this.state.pos.y * this.config.spring;
 
                 this.state.vel.x += forceX;
                 this.state.vel.y += forceY;
@@ -619,8 +623,22 @@ import siteData from '../data/site.json';
                 this.state.pos.x += this.state.vel.x;
                 this.state.pos.y += this.state.vel.y;
 
-                this.state.rot.x = -this.state.pos.y * 0.1 + Math.sin(t / 1600) * 2;
-                this.state.rot.y = this.state.pos.x * 0.1 + Math.cos(t / 2100) * 2;
+                this.state.rot.x = -this.state.pos.y * 0.1;
+                this.state.rot.y = this.state.pos.x * 0.1;
+
+                // Check if settled to rest
+                const speed = Math.hypot(this.state.vel.x, this.state.vel.y);
+                const dist = Math.hypot(this.state.pos.x, this.state.pos.y);
+                if (speed < 0.05 && dist < 0.05) {
+                    this.state.pos.x = 0;
+                    this.state.pos.y = 0;
+                    this.state.vel.x = 0;
+                    this.state.vel.y = 0;
+                    this.state.rot.x = 0;
+                    this.state.rot.y = 0;
+                    return false; // Settled -> sleep rAF
+                }
+                return true;
             }
         }
 
