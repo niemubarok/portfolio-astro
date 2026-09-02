@@ -15,7 +15,7 @@ const colors = [
     class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0 opacity-25 transform -ske-y-6"
 >
     <div
-        class="code-container font-mono text-sm leading-relaxed p-10 flex flex-col gap-1 transform -rotate-[5deg] scale-110 origin-top-left opacity-30"
+        class="code-container font-mono text-sm leading-relaxed p-10 flex flex-col gap-1 transform -rotate-[5deg] scale-110 origin-top-left opacity-25 -translate-x-12 blur-[1.5px]"
     >
         {
             Array.from({ length: lineCount }).map((_, i) => {
@@ -85,10 +85,10 @@ const colors = [
                         {lineType < 0.3 && (
                             <>
                                 <span class="text-pink-500">{keyword}</span>
-                                <span class="text-blue-400">{variable}</span>
-                                <span class="text-white">=</span>
-                                <span class="text-yellow-400">{func}</span>
-                                <span class="text-purple-400">()</span>
+                                <span class="text-blue-500 dark:text-blue-400">{variable}</span>
+                                <span class="text-slate-700 dark:text-white">=</span>
+                                <span class="text-amber-600 dark:text-yellow-400">{func}</span>
+                                <span class="text-purple-600 dark:text-purple-400">()</span>
                                 <span class="text-slate-500">;</span>
                             </>
                         )}

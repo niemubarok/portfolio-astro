@@ -6,10 +6,10 @@ const desiredOrbitingSkills = [
     'Next.js',
     'Astro',
     'Go',
-    'Wails',
-    'Bun',
     'React',
-    'Tailwind CSS'
+    'Tailwind CSS',
+    'Docker',
+    'Vue.js'
 ];
 
 const orbitingSkills = skills.filter((skill) =>
@@ -17,65 +17,67 @@ const orbitingSkills = skills.filter((skill) =>
 );
 ---
 
-<div
-    class="relative w-full max-w-[500px] aspect-square flex items-center justify-center"
->
-    <!-- Center Core -->
+<div class="relative w-full max-w-[540px] aspect-square flex items-center justify-center pointer-events-none select-none">
+    <!-- Radiant Cyber Ambient Core -->
     <div
-        class="absolute w-24 h-24 bg-primary-600/20 rounded-full blur-xl animate-pulse"
-    >
-    </div>
-    <div
-        class="relative z-10 w-20 h-20 bg-dark-surface/80 backdrop-blur-md rounded-full border border-primary-500/30 flex items-center justify-center shadow-neon"
-    >
-        <span class="text-3xl">⚛️</span>
-    </div>
-
-    <!-- Orbit Rings -->
-    <div
-        class="absolute w-[60%] h-[60%] border border-white/5 rounded-full animate-[spin_10s_linear_infinite]"
-    >
-    </div>
-    <div
-        class="absolute w-[90%] h-[90%] border border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]"
+        class="absolute w-64 h-64 bg-gradient-to-tr from-primary-600/20 via-cyan-500/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"
+        style="animation-duration: 4s;"
     >
     </div>
 
-    <!-- Orbiting Items -->
+    <!-- Technical Aperture SVG (Radar / Geometric HUD Rings) -->
+    <svg class="absolute w-full h-full opacity-40 animate-[spin_60s_linear_infinite]" viewBox="0 0 500 500">
+        <defs>
+            <linearGradient id="hud-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#818cf8" stop-opacity="0.8" />
+                <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="#c084fc" stop-opacity="0.8" />
+            </linearGradient>
+        </defs>
+
+        <!-- Outer Dashed Ring -->
+        <circle cx="250" cy="250" r="230" fill="none" stroke="url(#hud-grad)" stroke-width="1" stroke-dasharray="4 8" opacity="0.6" />
+        <!-- Middle Precision Ring with Ticks -->
+        <circle cx="250" cy="250" r="170" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="1 12" />
+        <!-- Inner Ring -->
+        <circle cx="250" cy="250" r="110" fill="none" stroke="url(#hud-grad)" stroke-width="1" stroke-dasharray="16 32" opacity="0.5" />
+        
+        <!-- Crosshairs -->
+        <line x1="250" y1="10" x2="250" y2="30" stroke="#06b6d4" stroke-width="1.5" />
+        <line x1="250" y1="470" x2="250" y2="490" stroke="#06b6d4" stroke-width="1.5" />
+        <line x1="10" y1="250" x2="30" y2="250" stroke="#06b6d4" stroke-width="1.5" />
+        <line x1="470" y1="250" x2="490" y2="250" stroke="#06b6d4" stroke-width="1.5" />
+    </svg>
+
+    <!-- Counter-rotating Inner Precision Dial -->
+    <svg class="absolute w-[75%] h-[75%] opacity-25 animate-[spin_45s_linear_infinite_reverse]" viewBox="0 0 400 400">
+        <circle cx="200" cy="200" r="190" fill="none" stroke="#818cf8" stroke-width="1" stroke-dasharray="2 18" />
+        <circle cx="200" cy="200" r="130" fill="none" stroke="#06b6d4" stroke-width="1" stroke-dasharray="40 10 10 10" />
+    </svg>
+
+    <!-- Orbiting Frosted Glass Tech Badges -->
     {
         orbitingSkills.map((skill, index) => {
             const angle = (index / orbitingSkills.length) * 2 * Math.PI;
-            const radius = 160;
+            const radius = 175;
             const x = Math.cos(angle) * radius;
             const y = Math.sin(angle) * radius;
 
             return (
                 <div
-                    class="absolute z-20"
+                    class="absolute z-10 pointer-events-auto"
                     style={`transform: translate(${x}px, ${y}px);`}
                 >
                     <div
-                        class="group w-14 h-14 bg-gradient-to-br from-slate-700/40 to-slate-900/40 border border-primary-400/20 hover:border-primary-400/60 rounded-full flex items-center justify-center shadow-lg hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] transition-all duration-300 cursor-pointer hover:scale-110 backdrop-blur-sm relative overflow-hidden"
-                        style={`animation: orbitFloat 8s ease-in-out infinite; animation-delay: ${index * 0.5}s;`}
+                        class="group relative w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-white/85 border border-slate-200/90 hover:border-cyan-500/60 backdrop-blur-md shadow-md hover:shadow-[0_0_20px_rgba(6,182,212,0.35)] dark:bg-slate-900/60 dark:border-white/15 dark:hover:border-cyan-400/50 dark:shadow-[0_8px_20px_rgba(0,0,0,0.6)] dark:hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] flex items-center justify-center transition-all duration-300 hover:scale-115 cursor-pointer"
+                        style={`animation: floatBadge 6s ease-in-out infinite; animation-delay: ${index * 0.45}s;`}
                         title={skill.name}
                     >
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
-                        
-                        {skill.name === 'Wails' ? (
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                width="24"
-                                height="24"
-                                fill="currentColor"
-                                class="text-primary-300 group-hover:text-primary-200 transition-colors duration-300 relative z-10"
-                                aria-label="Wails logo"
-                            >
-                                <path d="m19.67 5.252l-7.856 5.039l-.369-.459l-8.69-.283l1.891 1.904l5.221.106l1.63 1.656l-5.878.662l1.77 1.783l5.34-1.185l.003-.006l.993 1.168l-3.079 3.11l7.399.001l-1.582-5.002l2.209 3.14H24l-5.385-2.415h4.121l-5.384-2.418h4.117L16.297 9.73l1.088-1.443l4.09-1.076l-3.467.248zm-3.635 2.322l-6.039.43l1.455 1.826l1.813-.476zm-.252 2.84l-.86 1.145l-.001-.002l.154-.205zM0 12.2l5.615 1.033l-1.017-1.027z"/>
-                            </svg>
-                        ) : (
-                            <i class={`${skill.icon} text-2xl text-primary-300 group-hover:text-primary-200 transition-colors duration-300 relative z-10`} />
-                        )}
+                        <!-- Hover Glow Layer -->
+                        <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/20 via-primary-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                        <!-- Tech Icon -->
+                        <i class={`${skill.icon} text-2xl text-slate-700 group-hover:text-cyan-600 dark:text-slate-300 dark:group-hover:text-cyan-300 transition-colors duration-300 relative z-10 drop-shadow-sm`} />
                     </div>
                 </div>
             );
@@ -84,23 +86,14 @@ const orbitingSkills = skills.filter((skill) =>
 </div>
 
 <style>
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    @keyframes orbitFloat {
+    @keyframes floatBadge {
         0%,
         100% {
-            transform: translateY(0px);
+            transform: translateY(0px) rotate(0deg);
         }
-
         50% {
-            transform: translateY(-6px);
+            transform: translateY(-8px) rotate(2deg);
         }
     }
 </style>
+

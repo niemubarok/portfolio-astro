@@ -9,18 +9,18 @@ const navItems = [
 
 <!-- Floating Dock -->
 <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-auto">
-  <div class="flex items-center gap-1 sm:gap-2 px-2 py-2 rounded-full bg-dark-bg/30 backdrop-blur-2xl border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.3)] shadow-primary-500/10 hover:shadow-primary-500/20 transition-shadow duration-500">
+  <div class="flex items-center gap-1 sm:gap-2 px-2 py-2 rounded-full bg-white/80 dark:bg-dark-bg/40 backdrop-blur-2xl border border-slate-200/90 dark:border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.08)] dark:shadow-[0_0_30px_rgba(0,0,0,0.3)] shadow-primary-500/10 hover:shadow-primary-500/20 transition-all duration-500">
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="relative group flex items-center justify-center w-12 h-12 sm:w-auto sm:h-auto sm:px-5 sm:py-3 rounded-full hover:bg-white/5 transition-all duration-300"
+          class="relative group flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 transition-all duration-300"
           aria-label={item.name}
         >
           <!-- Icon -->
-          <span class="text-slate-400 group-hover:text-primary-400 transition-colors duration-300" set:html={item.icon}></span>
+          <span class="text-slate-600 dark:text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300" set:html={item.icon}></span>
           
           <!-- Text (Hidden on mobile, visible on desktop) -->
-          <span class="hidden sm:block ml-2 text-sm font-medium text-slate-400 group-hover:text-white transition-colors duration-300">{item.name}</span>
+          <span class="hidden sm:block ml-2 text-sm font-semibold text-slate-700 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">{item.name}</span>
           
           <!-- Hover Glow -->
           <span class="absolute inset-0 rounded-full bg-primary-500/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></span>
@@ -29,8 +29,84 @@ const navItems = [
           <span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary-500 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0"></span>
         </a>
       ))}
+
+      <!-- Vertical Divider -->
+      <div class="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1"></div>
+
+      <!-- Theme Toggle Button -->
+      <button
+        id="theme-toggle"
+        type="button"
+        class="relative group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-300 transition-all duration-300"
+        aria-label="Toggle theme (Light / Dark)"
+        title="Toggle theme (Light / Dark)"
+      >
+        <!-- Sun Icon (Active in Dark Mode -> Click to switch to Light) -->
+        <svg
+          class="w-5 h-5 hidden dark:block text-amber-300 group-hover:rotate-90 transition-transform duration-500 drop-shadow-[0_0_8px_rgba(252,211,77,0.5)]"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+
+        <!-- Moon Icon (Active in Light Mode -> Click to switch to Dark) -->
+        <svg
+          class="w-5 h-5 block dark:hidden text-indigo-600 group-hover:-rotate-12 transition-transform duration-500"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+
+        <!-- Hover Tooltip -->
+        <span
+          class="absolute bottom-full mb-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-lg"
+        >
+          <span class="dark:hidden">Dark mode</span>
+          <span class="hidden dark:inline">Light mode</span>
+        </span>
+
+        <!-- Hover Glow -->
+        <span class="absolute inset-0 rounded-full bg-primary-500/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></span>
+      </button>
   </div>
 </nav>
+
+<script>
+  function setupThemeToggle() {
+    const toggleBtn = document.getElementById('theme-toggle');
+    if (!toggleBtn) return;
+
+    // Remove any existing listeners before attaching
+    const newToggleBtn = toggleBtn.cloneNode(true) as HTMLElement;
+    toggleBtn.parentNode?.replaceChild(newToggleBtn, toggleBtn);
+
+    newToggleBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+
+      window.dispatchEvent(
+        new CustomEvent('theme-changed', {
+          detail: { theme: isDark ? 'light' : 'dark' }
+        })
+      );
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupThemeToggle);
+  setupThemeToggle();
+</script>
 
 <!-- Top Brand Identity -->
 <!-- <div class="fixed top-6 left-6 z-40">

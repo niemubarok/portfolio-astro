@@ -26,9 +26,29 @@ const { title, description = 'Husni Mubarok - Fullstack Developer Portfolio' } =
             rel="stylesheet"
         />
         <title>{title}</title>
+
+        <script is:inline>
+            (function() {
+                function getTheme() {
+                    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+                        return localStorage.getItem('theme');
+                    }
+                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        return 'dark';
+                    }
+                    return 'light';
+                }
+                const theme = getTheme();
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            })();
+        </script>
     </head>
     <body
-        class="bg-dark-bg text-slate-300 font-sans antialiased selection:bg-primary-500/30 selection:text-primary-200 cursor-none"
+        class="bg-slate-50 text-slate-800 dark:bg-dark-bg dark:text-slate-300 font-sans antialiased selection:bg-primary-500/30 selection:text-primary-800 dark:selection:text-primary-200 cursor-none transition-colors duration-300"
     >
         <CustomCursor />
         <div class="ambient-gradient fixed inset-0 z-[-1]"></div>
