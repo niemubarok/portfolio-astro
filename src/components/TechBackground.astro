@@ -128,24 +128,58 @@ const binaryStreams = [
 </div>
 
 <script>
-    // Smooth scroll parallax
-    const layers = document.querySelectorAll('.parallax-layer');
+    function setupParallax() {
+        if ((window as any).__parallaxInitialized) return;
+        (window as any).__parallaxInitialized = true;
 
-    window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
+        // Skip parallax calculations on mobile/coarse pointers for buttery 60/120fps scroll
+        if (window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches) {
+            return;
+        }
 
-        layers.forEach((layer) => {
-            const speed = parseFloat(layer.getAttribute('data-speed') || '0.2');
-            const direction = layer.getAttribute('data-direction') || 'up';
-            const element = layer as HTMLElement;
+        let ticking = false;
+        const layers = document.querySelectorAll('.parallax-layer');
+        if (layers.length === 0) return;
 
-            const rect = element.parentElement?.getBoundingClientRect();
-            if (rect && rect.top < window.innerHeight && rect.bottom > 0) {
-                const offset = scrolled * speed;
-                if (direction === 'up') element.style.transform = `translateY(-${offset * 0.5}px)`;
-                if (direction === 'down') element.style.transform = `translateY(${offset * 0.5}px)`;
-            }
-        });
-    }, { passive: true });
+        function updateParallax() {
+            const scrolled = window.scrollY;
+            const windowHeight = window.innerHeight;
+
+            layers.forEach((layer) => {
+                const speed = parseFloat(layer.getAttribute('data-speed') || '0.2');
+                const direction = layer.getAttribute('data-direction') || 'up';
+                const element = layer as HTMLElement;
+                const parent = element.parentElement;
+
+                if (parent) {
+                    const rect = parent.getBoundingClientRect();
+                    if (rect.top < windowHeight && rect.bottom > 0) {
+                        const offset = scrolled * speed;
+                        if (direction === 'up') element.style.transform = `translate3d(0, -${(offset * 0.5).toFixed(1)}px, 0)`;
+                        if (direction === 'down') element.style.transform = `translate3d(0, ${(offset * 0.5).toFixed(1)}px, 0)`;
+                    }
+                }
+            });
+            ticking = false;
+        }
+
+        window.addEventListener(
+            'scroll',
+            () => {
+                if (!ticking) {
+                    requestAnimationFrame(updateParallax);
+                    ticking = true;
+                }
+            },
+            { passive: true }
+        );
+    }
+
+    document.addEventListener('astro:page-load', setupParallax);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupParallax);
+    } else {
+        setupParallax();
+    }
 </script>
 

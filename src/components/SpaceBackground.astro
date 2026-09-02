@@ -30,6 +30,8 @@
         mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
         isHovering = false;
         animId: number | null = null;
+        observer: IntersectionObserver | null = null;
+        isInView = true;
         isDark = true;
 
         darkColors = [
@@ -64,25 +66,49 @@
         }
 
         init() {
+            this.setupObserver();
             this.resize();
             this.createNodes();
             this.bindEvents();
-            this.animate();
+            this.start();
+        }
+
+        setupObserver() {
+            if (!this.canvas || typeof IntersectionObserver === 'undefined') return;
+            this.observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        this.isInView = entry.isIntersecting;
+                        if (this.isInView) {
+                            this.start();
+                        } else {
+                            this.stop();
+                        }
+                    });
+                },
+                { rootMargin: '100px 0px' }
+            );
+            this.observer.observe(this.canvas);
         }
 
         resize() {
-            this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+            const isMobile = window.innerWidth < 768;
+            this.dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
             this.width = this.canvas.parentElement?.clientWidth || window.innerWidth;
             this.height = this.canvas.parentElement?.clientHeight || window.innerHeight;
 
             this.canvas.width = this.width * this.dpr;
             this.canvas.height = this.height * this.dpr;
+            this.ctx.setTransform(1, 0, 0, 1, 0, 0); // reset transform
             this.ctx.scale(this.dpr, this.dpr);
         }
 
         createNodes() {
             this.nodes = [];
-            const count = Math.min(Math.floor((this.width * this.height) / 12000), 110);
+            const isMobile = window.innerWidth < 768;
+            const maxNodes = isMobile ? 32 : 85;
+            const divisor = isMobile ? 22000 : 14000;
+            const count = Math.min(Math.floor((this.width * this.height) / divisor), maxNodes);
             const palette = this.currentColors;
 
             for (let i = 0; i < count; i++) {
@@ -91,8 +117,8 @@
                 this.nodes.push({
                     x: Math.random() * this.width,
                     y: Math.random() * this.height,
-                    vx: (Math.random() - 0.5) * 0.35,
-                    vy: (Math.random() - 0.5) * 0.35,
+                    vx: (Math.random() - 0.5) * (isMobile ? 0.25 : 0.35),
+                    vy: (Math.random() - 0.5) * (isMobile ? 0.25 : 0.35),
                     baseSize,
                     size: baseSize,
                     color,
@@ -111,23 +137,31 @@
         }
 
         bindEvents() {
+            let resizeTimer: number;
             window.addEventListener('resize', () => {
-                this.resize();
-                this.createNodes();
+                clearTimeout(resizeTimer);
+                resizeTimer = window.setTimeout(() => {
+                    this.resize();
+                    this.createNodes();
+                }, 150);
             });
 
-            window.addEventListener('mousemove', (e) => {
-                const rect = this.canvas.getBoundingClientRect();
-                this.mouse.targetX = e.clientX - rect.left;
-                this.mouse.targetY = e.clientY - rect.top;
-                this.isHovering = true;
-            });
+            const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+            if (isFinePointer) {
+                window.addEventListener('mousemove', (e) => {
+                    if (!this.isInView) return;
+                    const rect = this.canvas.getBoundingClientRect();
+                    this.mouse.targetX = e.clientX - rect.left;
+                    this.mouse.targetY = e.clientY - rect.top;
+                    this.isHovering = true;
+                });
 
-            document.addEventListener('mouseleave', () => {
-                this.isHovering = false;
-                this.mouse.targetX = -1000;
-                this.mouse.targetY = -1000;
-            });
+                document.addEventListener('mouseleave', () => {
+                    this.isHovering = false;
+                    this.mouse.targetX = -1000;
+                    this.mouse.targetY = -1000;
+                });
+            }
 
             window.addEventListener('theme-changed', () => {
                 this.updatePalette();
@@ -139,13 +173,42 @@
             observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
         }
 
-        animate() {
+        start() {
+            if (this.animId !== null) return;
+            const loop = () => {
+                if (!this.isInView) {
+                    this.animId = null;
+                    return;
+                }
+                this.render();
+                this.animId = requestAnimationFrame(loop);
+            };
+            this.animId = requestAnimationFrame(loop);
+        }
+
+        stop() {
+            if (this.animId !== null) {
+                cancelAnimationFrame(this.animId);
+                this.animId = null;
+            }
+        }
+
+        destroy() {
+            this.stop();
+            if (this.observer) {
+                this.observer.disconnect();
+                this.observer = null;
+            }
+        }
+
+        render() {
             this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.08;
             this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.08;
 
             this.ctx.clearRect(0, 0, this.width, this.height);
 
-            const connectDist = Math.min(140, this.width * 0.16);
+            const isMobile = window.innerWidth < 768;
+            const connectDist = isMobile ? Math.min(100, this.width * 0.22) : Math.min(135, this.width * 0.16);
             const mouseRadius = 180;
             const now = Date.now() * 0.002;
             const strokeColor = this.isDark ? '#818cf8' : '#6366f1';
@@ -182,14 +245,6 @@
                 this.ctx.globalAlpha = Math.min(1, node.alpha + cursorInfluence * 0.5);
                 this.ctx.fill();
 
-                if (cursorInfluence > 0.4) {
-                    this.ctx.beginPath();
-                    this.ctx.arc(node.x, node.y, node.size * 2.5, 0, Math.PI * 2);
-                    this.ctx.fillStyle = node.color;
-                    this.ctx.globalAlpha = cursorInfluence * 0.2;
-                    this.ctx.fill();
-                }
-
                 for (let j = i + 1; j < this.nodes.length; j++) {
                     const other = this.nodes[j];
                     const dx = node.x - other.x;
@@ -197,7 +252,7 @@
                     const dist = Math.hypot(dx, dy);
 
                     if (dist < connectDist) {
-                        const alpha = (1 - dist / connectDist) * (this.isDark ? 0.18 : 0.22);
+                        const alpha = (1 - dist / connectDist) * (this.isDark ? 0.16 : 0.2);
                         this.ctx.beginPath();
                         this.ctx.moveTo(node.x, node.y);
                         this.ctx.lineTo(other.x, other.y);
@@ -210,17 +265,23 @@
             }
 
             this.ctx.globalAlpha = 1;
-            this.animId = requestAnimationFrame(this.animate.bind(this));
         }
     }
 
     function initCanvas() {
         const canvas = document.getElementById('space-canvas') as HTMLCanvasElement;
         if (canvas) {
-            new ModernCyberCanvas(canvas);
+            if ((window as any).__spaceCanvasInstance) {
+                (window as any).__spaceCanvasInstance.destroy();
+            }
+            (window as any).__spaceCanvasInstance = new ModernCyberCanvas(canvas);
         }
     }
 
     document.addEventListener('astro:page-load', initCanvas);
-    document.addEventListener('DOMContentLoaded', initCanvas);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCanvas);
+    } else {
+        initCanvas();
+    }
 </script>

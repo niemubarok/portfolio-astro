@@ -48,7 +48,7 @@ const { title, description = 'Husni Mubarok - Fullstack Developer Portfolio' } =
         </script>
     </head>
     <body
-        class="bg-slate-50 text-slate-800 dark:bg-dark-bg dark:text-slate-300 font-sans antialiased selection:bg-primary-500/30 selection:text-primary-800 dark:selection:text-primary-200 cursor-none transition-colors duration-300"
+        class="bg-slate-50 text-slate-800 dark:bg-dark-bg dark:text-slate-300 font-sans antialiased selection:bg-primary-500/30 selection:text-primary-800 dark:selection:text-primary-200 md:cursor-none transition-colors duration-300"
     >
         <CustomCursor />
         <div class="ambient-gradient fixed inset-0 z-[-1]"></div>
@@ -59,43 +59,36 @@ const { title, description = 'Husni Mubarok - Fullstack Developer Portfolio' } =
             import AOS from 'aos';
             import 'aos/dist/aos.css';
 
-            document.addEventListener('astro:page-load', () => {
-                // Initialize VanillaTilt
-                const elements = document.querySelectorAll('[data-tilt]');
-                if (elements.length > 0) {
-                    VanillaTilt.init(Array.from(elements) as HTMLElement[], {
-                        speed: 400,
-                        glare: true,
-                        'max-glare': 0.3,
-                    });
+            function initGlobalEffects() {
+                // Initialize VanillaTilt ONLY on desktop devices with mouse/hover
+                const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                if (isFinePointer) {
+                    const elements = document.querySelectorAll('[data-tilt]');
+                    if (elements.length > 0) {
+                        VanillaTilt.init(Array.from(elements) as HTMLElement[], {
+                            speed: 400,
+                            glare: true,
+                            'max-glare': 0.3,
+                        });
+                    }
                 }
 
                 // Initialize AOS
                 AOS.init({
-                    duration: 1000,
+                    duration: 800,
                     once: true,
-                    offset: 100,
+                    offset: 40,
                     easing: 'ease-out-cubic',
-                });
-            });
-
-            // Initial load fallback
-            const elements = document.querySelectorAll('[data-tilt]');
-            if (elements.length > 0) {
-                VanillaTilt.init(Array.from(elements) as HTMLElement[], {
-                    speed: 400,
-                    glare: true,
-                    'max-glare': 0.3,
+                    disable: 'mobile', // Use lightweight animations on mobile to prevent scroll lag
                 });
             }
-            // Initial AOS
-            import 'aos/dist/aos.css';
-            AOS.init({
-                duration: 1000,
-                once: true,
-                offset: 50,
-            });
 
+            document.addEventListener('astro:page-load', initGlobalEffects);
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initGlobalEffects);
+            } else {
+                initGlobalEffects();
+            }
         </script>
     </body>
 </html>

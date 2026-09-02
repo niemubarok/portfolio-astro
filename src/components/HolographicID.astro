@@ -112,7 +112,7 @@ import siteData from '../data/site.json';
 <!-- Interactive Physics ID Card Container -->
 <div
     id="id-card-wrapper"
-    class="relative group w-full max-w-[340px] sm:max-w-[360px] h-auto cursor-grab active:cursor-grabbing mt-2 sm:mt-8 mx-auto select-none touch-none"
+    class="relative group w-full max-w-[340px] sm:max-w-[360px] h-auto cursor-grab active:cursor-grabbing mt-2 sm:mt-8 mx-auto select-none touch-pan-y"
     style="perspective: 1200px;"
 >
     <!-- The 3D Physics Card Assembly -->
@@ -376,14 +376,29 @@ import siteData from '../data/site.json';
         foil: HTMLElement | null = null;
         dropShadow: HTMLElement | null = null;
         animFrameId: number | null = null;
+        observer: IntersectionObserver | null = null;
+        isInView = true;
+
+        // Cached layout coordinates to eliminate getBoundingClientRect layout thrashing in rAF
+        cachedCoords = {
+            x1: 0,
+            y1: 0,
+            restX2: 0,
+            restY2: 0,
+            valid: false,
+        };
 
         state = {
-            pos: { x: 0, y: -900 }, // Initial drop from top
-            vel: { x: (Math.random() - 0.5) * 40, y: 0 },
+            pos: { x: 0, y: 0 },
+            vel: { x: 0, y: 0 },
             target: { x: 0, y: 0 },
             rot: { x: 0, y: 0 },
             isDragging: false,
             dragOffset: { x: 0, y: 0 },
+            touchStartX: 0,
+            touchStartY: 0,
+            isTouchSwipe: false,
+            isTouchScroll: false,
         };
 
         config = {
@@ -417,28 +432,87 @@ import siteData from '../data/site.json';
             this.init();
         }
 
+        setupObserver() {
+            if (!this.container || typeof IntersectionObserver === 'undefined') return;
+            this.observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        this.isInView = entry.isIntersecting;
+                        if (this.isInView) {
+                            this.startLoop();
+                        } else {
+                            this.stopLoop();
+                        }
+                    });
+                },
+                { rootMargin: '100px 0px' }
+            );
+            this.observer.observe(this.container);
+        }
+
+        updateCachedCoords() {
+            if (!this.anchor || !this.attachPoint || !this.lanyardSvg) return;
+            const svgRect = this.lanyardSvg.getBoundingClientRect();
+            const anchorRect = this.anchor.getBoundingClientRect();
+            const attachRect = this.attachPoint.getBoundingClientRect();
+
+            this.cachedCoords.x1 = anchorRect.left + anchorRect.width / 2 - svgRect.left;
+            this.cachedCoords.y1 = anchorRect.top + anchorRect.height / 2 - svgRect.top;
+            this.cachedCoords.restX2 = attachRect.left + attachRect.width / 2 - svgRect.left - this.state.pos.x;
+            this.cachedCoords.restY2 = attachRect.top + attachRect.height / 2 - svgRect.top - this.state.pos.y;
+            this.cachedCoords.valid = true;
+        }
+
         init() {
             if (!this.container) return;
 
+            this.setupObserver();
+            this.updateCachedCoords();
+
             // Bind Events
             this.container.addEventListener('mousedown', this.boundOnStart);
-            this.container.addEventListener('touchstart', this.boundOnStart, { passive: false });
+            this.container.addEventListener('touchstart', this.boundOnStart, { passive: true });
 
             window.addEventListener('mousemove', this.boundOnMove);
-            window.addEventListener('touchmove', this.boundOnMove, { passive: false });
+            window.addEventListener('touchmove', this.boundOnMove, { passive: true });
 
             window.addEventListener('mouseup', this.boundOnEnd);
             window.addEventListener('touchend', this.boundOnEnd);
             window.addEventListener('touchcancel', this.boundOnEnd);
 
-            // Start Loop
-            this.animate();
+            window.addEventListener('resize', () => {
+                this.updateCachedCoords();
+            });
+
+            this.startLoop();
         }
 
-        destroy() {
+        startLoop() {
+            if (this.animFrameId !== null) return;
+            const loop = () => {
+                if (!this.isInView) {
+                    this.animFrameId = null;
+                    return;
+                }
+                this.updatePhysics();
+                this.updateVisuals();
+                this.animFrameId = requestAnimationFrame(loop);
+            };
+            this.animFrameId = requestAnimationFrame(loop);
+        }
+
+        stopLoop() {
             if (this.animFrameId !== null) {
                 cancelAnimationFrame(this.animFrameId);
                 this.animFrameId = null;
+            }
+        }
+
+        destroy() {
+            this.stopLoop();
+            if (this.observer) {
+                this.observer.disconnect();
+                this.observer = null;
             }
 
             if (this.container) {
@@ -454,13 +528,22 @@ import siteData from '../data/site.json';
         }
 
         onStart(e: MouseEvent | TouchEvent) {
-            this.state.isDragging = true;
-            if (this.container) {
+            const isTouch = 'touches' in e;
+            if (isTouch) {
+                if (e.touches.length !== 1) return;
+                this.state.touchStartX = e.touches[0].clientX;
+                this.state.touchStartY = e.touches[0].clientY;
+                this.state.isTouchSwipe = false;
+                this.state.isTouchScroll = false;
+            }
+
+            this.state.isDragging = !isTouch; // mouse starts immediately
+            if (this.container && !isTouch) {
                 this.container.style.cursor = 'grabbing';
             }
 
-            const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-            const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+            const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+            const clientY = isTouch ? e.touches[0].clientY : e.clientY;
 
             this.state.dragOffset.x = clientX - this.state.pos.x;
             this.state.dragOffset.y = clientY - this.state.pos.y;
@@ -469,11 +552,29 @@ import siteData from '../data/site.json';
         }
 
         onMove(e: MouseEvent | TouchEvent) {
-            if (!this.state.isDragging) return;
-            if (e.cancelable && e.type === 'touchmove') e.preventDefault();
+            const isTouch = 'touches' in e;
+            if (isTouch) {
+                if (e.touches.length !== 1 || this.state.isTouchScroll) return;
+                const dx = e.touches[0].clientX - this.state.touchStartX;
+                const dy = e.touches[0].clientY - this.state.touchStartY;
 
-            const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-            const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+                if (!this.state.isTouchSwipe && !this.state.isTouchScroll) {
+                    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 6) {
+                        this.state.isTouchScroll = true;
+                        this.state.isDragging = false;
+                        return; // Allow native vertical scroll
+                    }
+                    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 6) {
+                        this.state.isTouchSwipe = true;
+                        this.state.isDragging = true;
+                    }
+                }
+            }
+
+            if (!this.state.isDragging) return;
+
+            const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+            const clientY = isTouch ? e.touches[0].clientY : e.clientY;
 
             this.state.target.x = clientX - this.state.dragOffset.x;
             this.state.target.y = clientY - this.state.dragOffset.y;
@@ -481,6 +582,8 @@ import siteData from '../data/site.json';
 
         onEnd() {
             this.state.isDragging = false;
+            this.state.isTouchSwipe = false;
+            this.state.isTouchScroll = false;
             if (this.container) {
                 this.container.style.cursor = 'grab';
             }
@@ -488,7 +591,6 @@ import siteData from '../data/site.json';
 
         updatePhysics() {
             if (this.state.isDragging) {
-                // Dragging dynamics with realistic inertia lag
                 const dx = this.state.target.x - this.state.pos.x;
                 const dy = this.state.target.y - this.state.pos.y;
 
@@ -498,14 +600,12 @@ import siteData from '../data/site.json';
                 this.state.pos.x += this.state.vel.x;
                 this.state.pos.y += this.state.vel.y;
 
-                // 3D Tilt reacts dynamically to drag movement
                 this.state.rot.y = Math.max(-30, Math.min(30, this.state.vel.x * 1.3));
                 this.state.rot.x = Math.max(-30, Math.min(30, -this.state.vel.y * 1.3));
             } else {
-                // Natural gentle float & pendulum sway
                 const t = Date.now();
-                const hoverX = Math.sin(t / 2200) * 12;
-                const hoverY = Math.cos(t / 1700) * 10;
+                const hoverX = Math.sin(t / 2200) * 10;
+                const hoverY = Math.cos(t / 1700) * 8;
 
                 const forceX = (hoverX - this.state.pos.x) * this.config.spring;
                 const forceY = (hoverY - this.state.pos.y) * this.config.spring;
@@ -519,9 +619,8 @@ import siteData from '../data/site.json';
                 this.state.pos.x += this.state.vel.x;
                 this.state.pos.y += this.state.vel.y;
 
-                // Subtle breathing 3D tilt
-                this.state.rot.x = -this.state.pos.y * 0.1 + Math.sin(t / 1600) * 2.5;
-                this.state.rot.y = this.state.pos.x * 0.1 + Math.cos(t / 2100) * 2.5;
+                this.state.rot.x = -this.state.pos.y * 0.1 + Math.sin(t / 1600) * 2;
+                this.state.rot.y = this.state.pos.x * 0.1 + Math.cos(t / 2100) * 2;
             }
         }
 
@@ -529,54 +628,40 @@ import siteData from '../data/site.json';
             const { x, y } = this.state.pos;
             const { x: rx, y: ry } = this.state.rot;
 
-            // Apply 3D Transform to card assembly
+            // Apply 3D Transform
             if (this.card) {
                 this.card.style.transform = `
-                    translate3d(${x}px, ${y}px, 0) 
-                    rotateX(${rx}deg) 
-                    rotateY(${ry}deg)
+                    translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) 
+                    rotateX(${rx.toFixed(1)}deg) 
+                    rotateY(${ry.toFixed(1)}deg)
                 `;
             }
 
-            // Dynamic Prismatic Foil & Glare Sheen
+            // Prismatic foil & glare sheen (smooth)
             if (this.foil) {
-                const foilPos = 50 + (rx * 2) + (ry * 2);
-                this.foil.style.backgroundPosition = `${foilPos}% ${foilPos}%`;
-                const tiltMag = (Math.abs(rx) + Math.abs(ry)) / 50;
-                this.foil.style.opacity = (0.15 + Math.min(0.45, tiltMag * 0.4)).toString();
+                const foilPos = 50 + rx * 2 + ry * 2;
+                this.foil.style.backgroundPosition = `${foilPos.toFixed(0)}% ${foilPos.toFixed(0)}%`;
             }
 
             if (this.glare) {
                 const glareX = 50 + ry * 2;
                 const glareY = 50 - rx * 2;
-                this.glare.style.backgroundPosition = `${glareX}% ${glareY}%`;
-                const glareOpacity = Math.min(0.6, ((Math.abs(rx) + Math.abs(ry)) / 60) * 0.7);
-                this.glare.style.opacity = glareOpacity.toString();
+                this.glare.style.backgroundPosition = `${glareX.toFixed(0)}% ${glareY.toFixed(0)}%`;
             }
 
-            // Cast Floor Shadow adjustment based on distance from resting origin
             if (this.dropShadow) {
                 const shadowX = -x * 0.2;
                 const shadowY = 25 - y * 0.15;
-                const shadowBlur = 24 + Math.hypot(x, y) * 0.05;
-                this.dropShadow.style.transform = `translate3d(${shadowX}px, ${shadowY}px, 0)`;
-                this.dropShadow.style.filter = `blur(${shadowBlur}px)`;
+                this.dropShadow.style.transform = `translate3d(${shadowX.toFixed(1)}px, ${shadowY.toFixed(1)}px, 0)`;
             }
 
-            // Lanyard Realistic Strap Update
-            if (this.anchor && this.attachPoint && this.lanyardSvg) {
-                const svgRect = this.lanyardSvg.getBoundingClientRect();
-                const anchorRect = this.anchor.getBoundingClientRect();
-                const attachRect = this.attachPoint.getBoundingClientRect();
+            // Lanyard strap update with cached coordinates (No forced reflow!)
+            if (this.cachedCoords.valid) {
+                const x1 = this.cachedCoords.x1;
+                const y1 = this.cachedCoords.y1;
+                const x2 = this.cachedCoords.restX2 + x;
+                const y2 = this.cachedCoords.restY2 + y;
 
-                // Viewport coordinates
-                const x1 = anchorRect.left + anchorRect.width / 2 - svgRect.left;
-                const y1 = anchorRect.top + anchorRect.height / 2 - svgRect.top;
-
-                const x2 = attachRect.left + attachRect.width / 2 - svgRect.left;
-                const y2 = attachRect.top + attachRect.height / 2 - svgRect.top;
-
-                // Physics catenary/bezier curve calculation
                 const dx = x2 - x1;
                 const dy = y2 - y1;
                 const dist = Math.hypot(dx, dy);
@@ -585,7 +670,6 @@ import siteData from '../data/site.json';
                 const midX = (x1 + x2) / 2;
                 const midY = (y1 + y2) / 2;
 
-                // Slack/tension physics
                 const slack = Math.max(0, restDist - dist) * 0.5;
                 const ctrlX = midX + this.state.vel.x * 0.18;
                 const ctrlY = midY + slack - this.state.vel.y * 0.12;
@@ -600,12 +684,6 @@ import siteData from '../data/site.json';
                 if (this.lanyardStitchPath) this.lanyardStitchPath.setAttribute('d', pathData);
             }
         }
-
-        animate() {
-            this.updatePhysics();
-            this.updateVisuals();
-            this.animFrameId = requestAnimationFrame(this.animate.bind(this));
-        }
     }
 
     // Single-instance lifecycle
@@ -617,6 +695,10 @@ import siteData from '../data/site.json';
     }
 
     document.addEventListener('astro:page-load', initPhysicsCard);
-    document.addEventListener('DOMContentLoaded', initPhysicsCard);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPhysicsCard);
+    } else {
+        initPhysicsCard();
+    }
 </script>
 
