@@ -19,7 +19,32 @@ const projects = (await getCollection('projects'))
     .sort((a, b) => a.data.order - b.data.order)
     .slice(0, 6); // Top 3 projects
 
-const featuredSkills = skills.slice(0, 8); // Top 8 skills
+const featuredSkills = skills.filter((skill) =>
+    [
+        'HTML/CSS',
+        'JavaScript',
+        'TypeScript',
+        'Vue.js',
+        'React',
+        'Next.js',
+        'Astro',
+        'Tailwind CSS',
+        'PHP',
+        'Laravel',
+        'Node.js',
+        'Go',
+        'MySQL',
+        'PostgreSQL',
+        'Docker',
+        'AWS',
+        'Podman',
+        'CouchDB',
+        'DuckDB',
+        'Git',
+        'GitHub Copilot',
+        'VS Code'
+    ].includes(skill.name)
+);
 ---
 
 <Layout title={`${siteData.profile.name} - ${siteData.profile.title}`}>
@@ -89,8 +114,8 @@ const featuredSkills = skills.slice(0, 8); // Top 8 skills
                         <span
                             id="dynamic-text"
                             class="text-transparent bg-clip-text bg-neon-gradient glitch relative inline-block whitespace-nowrap"
-                            data-text="Digital Excellence."
-                            >Digital Excellence.</span
+                            data-text="AI Product Engineering."
+                            >AI Product Engineering.</span
                         >
                     </h1>
 
@@ -105,11 +130,11 @@ const featuredSkills = skills.slice(0, 8); // Top 8 skills
                     <script>
                         // Dynamic Text Rotator
                         const phrases = [
-                            'Digital Excellence.',
+                            'AI Product Engineering.',
+                            'LLM Experiences.',
                             'Full Stack Mastery.',
                             'Scalable Systems.',
-                            'Cloud Solutions.',
-                            'Seamless UX/UI.',
+                            'Cloud & Automation.',
                         ];
                         let index = 0;
                         const el = document.getElementById('dynamic-text');
@@ -124,7 +149,7 @@ const featuredSkills = skills.slice(0, 8); // Top 8 skills
 
                         // Typing Animation for Description
                         const descText =
-                            'Transforming complex requirements into robust, scalable, and user-centric digital solutions. Bridging the gap between powerful backend logic and immersive frontend experiences to drive business success.';
+                            'I build AI-enabled products, LLM workflows, and modern digital experiences—combining backend reliability, UX polish, and developer tooling to turn ideas into scalable, production-ready solutions.';
                         const descEl = document.getElementById('typing-desc');
 
                         if (descEl) {
@@ -202,7 +227,7 @@ const featuredSkills = skills.slice(0, 8); // Top 8 skills
         </section>
 
         <!-- Projects Section (3D Tilt Cards) -->
-        <section id="projects" class="py-20 lg:py-32 relative overflow-hidden">
+        <section id="projects" class="py-20 lg:py-32 relative overflow-hidden bg-dark-bg/30">
             <!-- Parallax Tech Background: Grid Mode -->
             <TechBackground theme="grid" speed={0.15} direction="down" />
 
@@ -263,47 +288,171 @@ const featuredSkills = skills.slice(0, 8); // Top 8 skills
         <!-- Skills Section (Glass Cards) -->
         <section
             id="skills"
-            class="py-20 lg:py-24 bg-dark-bg/50 relative overflow-hidden"
+            class="py-20 lg:py-24 bg-dark-bg/30 relative overflow-hidden"
         >
             <!-- Parallax Tech Background: Binary Mode -->
             <TechBackground theme="binary" speed={0.1} direction="up" />
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <h2
-                    class="text-3xl font-bold font-display text-white text-center mb-10 lg:mb-16"
+                    class="text-3xl font-bold font-display text-white text-center mb-4 lg:mb-6"
                     data-aos="zoom-in"
                 >
                     Technologies & Arsenal
                 </h2>
-                <div
-                    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 lg:gap-6"
-                >
-                    {
-                        featuredSkills.map((skill, index) => (
-                            <div
-                                class="group p-4 rounded-xl bg-glass-gradient border border-white/5 hover:border-primary-500/50 transition-all hover:-translate-y-2 hover:shadow-neon backdrop-blur-sm cursor-default"
-                                data-tilt
-                                data-tilt-scale="1.1"
-                                data-aos="fade-up"
-                                data-aos-delay={index * 50}
-                            >
-                                <div class="flex flex-col items-center">
-                                    <i
-                                        class={`${skill.icon} text-4xl mb-3 text-slate-400 group-hover:text-white transition-colors drop-shadow-lg`}
-                                    />
-                                    <span class="text-sm font-medium text-slate-300 group-hover:text-primary-300">
-                                        {skill.name}
-                                    </span>
-                                </div>
+                <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 lg:mb-16">
+                    From AI-assisted product workflows and prototyping to backend architecture, cloud deployment, and developer tooling.
+                </p>
+
+                {/* Carousel Container with Faded Edges */}
+                <div class="relative group space-y-12">
+                    {/* Row 1 */}
+                    <div class="relative h-32 flex items-center">
+                        {/* Carousel Track */}
+                        <div class="skill-carousel-window overflow-hidden w-full">
+                            <div class="flex gap-8 lg:gap-12 px-4" style="animation: scroll 40s linear infinite;">
+                                {
+                                    featuredSkills.slice(0, Math.ceil(featuredSkills.length / 2)).map((skill, index) => (
+                                        <div
+                                            class="group/item flex flex-col items-center gap-3 flex-shrink-0 transition-all duration-300 hover:opacity-100"
+                                            style={`animation: fadeInUp 0.8s ease-out forwards; animation-delay: ${index * 80}ms;`}
+                                        >
+                                            <div class="relative h-20 w-20 flex items-center justify-center">
+                                                {skill.name === 'Wails' ? (
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        width="56"
+                                                        height="56"
+                                                        fill="currentColor"
+                                                        class="text-slate-400 group-hover/item:text-primary-400 transition-all duration-300 drop-shadow-lg group-hover/item:scale-125 group-hover/item:filter group-hover/item:drop-shadow-[0_0_12px_rgba(139,92,246,0.6)]"
+                                                        aria-label="Wails logo"
+                                                    >
+                                                        <path d="m19.67 5.252l-7.856 5.039l-.369-.459l-8.69-.283l1.891 1.904l5.221.106l1.63 1.656l-5.878.662l1.77 1.783l5.34-1.185l.003-.006l.993 1.168l-3.079 3.11l7.399.001l-1.582-5.002l2.209 3.14H24l-5.385-2.415h4.121l-5.384-2.418h4.117L16.297 9.73l1.088-1.443l4.09-1.076l-3.467.248zm-3.635 2.322l-6.039.43l1.455 1.826l1.813-.476zm-.252 2.84l-.86 1.145l-.001-.002l.154-.205zM0 12.2l5.615 1.033l-1.017-1.027z"/>
+                                                    </svg>
+                                                ) : (
+                                                    <i
+                                                        class={`${skill.icon} text-6xl text-slate-400 group-hover/item:text-primary-400 transition-all duration-300 drop-shadow-lg group-hover/item:scale-125 group-hover/item:filter group-hover/item:drop-shadow-[0_0_12px_rgba(139,92,246,0.6)]`}
+                                                    />
+                                                )}
+                                            </div>
+                                            <span class="text-sm font-semibold text-slate-300 group-hover/item:text-primary-300 transition-colors duration-300 whitespace-nowrap text-center">
+                                                {skill.name}
+                                            </span>
+                                        </div>
+                                    ))
+                                }
+                                {/* Duplicate for seamless loop */}
+                                {
+                                    featuredSkills.slice(0, Math.ceil(featuredSkills.length / 2)).map((skill, index) => (
+                                        <div
+                                            class="group/item flex flex-col items-center gap-3 flex-shrink-0 transition-all duration-300 hover:opacity-100"
+                                        >
+                                            <div class="relative h-20 w-20 flex items-center justify-center">
+                                                {skill.name === 'Wails' ? (
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        width="56"
+                                                        height="56"
+                                                        fill="currentColor"
+                                                        class="text-slate-400 group-hover/item:text-primary-400 transition-all duration-300 drop-shadow-lg group-hover/item:scale-125 group-hover/item:filter group-hover/item:drop-shadow-[0_0_12px_rgba(139,92,246,0.6)]"
+                                                        aria-label="Wails logo"
+                                                    >
+                                                        <path d="m19.67 5.252l-7.856 5.039l-.369-.459l-8.69-.283l1.891 1.904l5.221.106l1.63 1.656l-5.878.662l1.77 1.783l5.34-1.185l.003-.006l.993 1.168l-3.079 3.11l7.399.001l-1.582-5.002l2.209 3.14H24l-5.385-2.415h4.121l-5.384-2.418h4.117L16.297 9.73l1.088-1.443l4.09-1.076l-3.467.248zm-3.635 2.322l-6.039.43l1.455 1.826l1.813-.476zm-.252 2.84l-.86 1.145l-.001-.002l.154-.205zM0 12.2l5.615 1.033l-1.017-1.027z"/>
+                                                    </svg>
+                                                ) : (
+                                                    <i
+                                                        class={`${skill.icon} text-6xl text-slate-400 group-hover/item:text-primary-400 transition-all duration-300 drop-shadow-lg group-hover/item:scale-125 group-hover/item:filter group-hover/item:drop-shadow-[0_0_12px_rgba(139,92,246,0.6)]`}
+                                                    />
+                                                )}
+                                            </div>
+                                            <span class="text-sm font-semibold text-slate-300 group-hover/item:text-primary-300 transition-colors duration-300 whitespace-nowrap text-center">
+                                                {skill.name}
+                                            </span>
+                                        </div>
+                                    ))
+                                }
                             </div>
-                        ))
-                    }
+                        </div>
+                    </div>
+
+                    {/* Row 2 */}
+                    <div class="relative h-32 flex items-center">
+                        {/* Carousel Track */}
+                        <div class="skill-carousel-window overflow-hidden w-full">
+                            <div class="flex gap-8 lg:gap-12 px-4" style="animation: scroll-reverse 40s linear infinite;">
+                                {
+                                    featuredSkills.slice(Math.ceil(featuredSkills.length / 2)).map((skill, index) => (
+                                        <div
+                                            class="group/item flex flex-col items-center gap-3 flex-shrink-0 transition-all duration-300 hover:opacity-100"
+                                            style={`animation: fadeInUp 0.8s ease-out forwards; animation-delay: ${index * 80}ms;`}
+                                        >
+                                            <div class="relative h-20 w-20 flex items-center justify-center">
+                                                {skill.name === 'Wails' ? (
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        width="56"
+                                                        height="56"
+                                                        fill="currentColor"
+                                                        class="text-slate-400 group-hover/item:text-primary-400 transition-all duration-300 drop-shadow-lg group-hover/item:scale-125 group-hover/item:filter group-hover/item:drop-shadow-[0_0_12px_rgba(139,92,246,0.6)]"
+                                                        aria-label="Wails logo"
+                                                    >
+                                                        <path d="m19.67 5.252l-7.856 5.039l-.369-.459l-8.69-.283l1.891 1.904l5.221.106l1.63 1.656l-5.878.662l1.77 1.783l5.34-1.185l.003-.006l.993 1.168l-3.079 3.11l7.399.001l-1.582-5.002l2.209 3.14H24l-5.385-2.415h4.121l-5.384-2.418h4.117L16.297 9.73l1.088-1.443l4.09-1.076l-3.467.248zm-3.635 2.322l-6.039.43l1.455 1.826l1.813-.476zm-.252 2.84l-.86 1.145l-.001-.002l.154-.205zM0 12.2l5.615 1.033l-1.017-1.027z"/>
+                                                    </svg>
+                                                ) : (
+                                                    <i
+                                                        class={`${skill.icon} text-6xl text-slate-400 group-hover/item:text-primary-400 transition-all duration-300 drop-shadow-lg group-hover/item:scale-125 group-hover/item:filter group-hover/item:drop-shadow-[0_0_12px_rgba(139,92,246,0.6)]`}
+                                                    />
+                                                )}
+                                            </div>
+                                            <span class="text-sm font-semibold text-slate-300 group-hover/item:text-primary-300 transition-colors duration-300 whitespace-nowrap text-center">
+                                                {skill.name}
+                                            </span>
+                                        </div>
+                                    ))
+                                }
+                                {/* Duplicate for seamless loop */}
+                                {
+                                    featuredSkills.slice(Math.ceil(featuredSkills.length / 2)).map((skill, index) => (
+                                        <div
+                                            class="group/item flex flex-col items-center gap-3 flex-shrink-0 transition-all duration-300 hover:opacity-100"
+                                        >
+                                            <div class="relative h-20 w-20 flex items-center justify-center">
+                                                {skill.name === 'Wails' ? (
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        width="56"
+                                                        height="56"
+                                                        fill="currentColor"
+                                                        class="text-slate-400 group-hover/item:text-primary-400 transition-all duration-300 drop-shadow-lg group-hover/item:scale-125 group-hover/item:filter group-hover/item:drop-shadow-[0_0_12px_rgba(139,92,246,0.6)]"
+                                                        aria-label="Wails logo"
+                                                    >
+                                                        <path d="m19.67 5.252l-7.856 5.039l-.369-.459l-8.69-.283l1.891 1.904l5.221.106l1.63 1.656l-5.878.662l1.77 1.783l5.34-1.185l.003-.006l.993 1.168l-3.079 3.11l7.399.001l-1.582-5.002l2.209 3.14H24l-5.385-2.415h4.121l-5.384-2.418h4.117L16.297 9.73l1.088-1.443l4.09-1.076l-3.467.248zm-3.635 2.322l-6.039.43l1.455 1.826l1.813-.476zm-.252 2.84l-.86 1.145l-.001-.002l.154-.205zM0 12.2l5.615 1.033l-1.017-1.027z"/>
+                                                    </svg>
+                                                ) : (
+                                                    <i
+                                                        class={`${skill.icon} text-6xl text-slate-400 group-hover/item:text-primary-400 transition-all duration-300 drop-shadow-lg group-hover/item:scale-125 group-hover/item:filter group-hover/item:drop-shadow-[0_0_12px_rgba(139,92,246,0.6)]`}
+                                                    />
+                                                )}
+                                            </div>
+                                            <span class="text-sm font-semibold text-slate-300 group-hover/item:text-primary-300 transition-colors duration-300 whitespace-nowrap text-center">
+                                                {skill.name}
+                                            </span>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Career Timeline Section -->
-        <section id="career" class="py-20 lg:py-24 relative overflow-hidden">
+        <section id="career" class="py-20 lg:py-24 relative overflow-hidden bg-dark-bg/20">
             <!-- Parallax Tech Background: Circuit Mode -->
             <TechBackground theme="circuit" speed={0.1} direction="down" />
 
@@ -329,215 +478,92 @@ const featuredSkills = skills.slice(0, 8); // Top 8 skills
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20 lg:py-32 relative overflow-hidden">
+        <section id="contact" class="py-20 lg:py-32 relative overflow-hidden bg-dark-bg/30">
             <div
                 class="absolute bottom-0 left-0 w-full h-[500px] bg-gradient-to-t from-primary-900/20 to-transparent pointer-events-none"
             >
             </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2
-                        class="text-3xl md:text-4xl font-bold font-display text-white mb-4"
-                    >
-                        Initialize Connection...
-                    </h2>
-                    <p class="text-slate-400 max-w-2xl mx-auto">
-                        Ready to start your next mission? Select your preferred
-                        communication channel or transmit your data below.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+                <div class="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-24 items-start">
                     <!-- Contact Info -->
                     <div
-                        class="order-2 lg:order-1 space-y-8"
+                        class="order-2 lg:order-1 pt-2"
                         data-aos="fade-right"
                     >
-                        <div
-                            class="bg-dark-surface/50 border border-white/10 rounded-3xl p-8 backdrop-blur-xl hover:border-primary-500/30 transition-colors group"
-                        >
-                            <h3
-                                class="text-xl font-bold text-white mb-6 flex items-center gap-3"
-                            >
-                                <span
-                                    class="p-3 rounded-lg bg-primary-500/10 text-primary-400 group-hover:bg-primary-500/20 transition-colors"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="w-6 h-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                                        ></path>
-                                    </svg>
-                                </span>
-                                Direct Channel
-                            </h3>
-                            <div class="space-y-4">
-                                <div>
-                                    <p
-                                        class="text-sm font-mono text-slate-500 mb-1"
-                                    >
-                                        EMAIL
-                                    </p>
-                                    <a
-                                        href={`mailto:${siteData.contact.email}`}
-                                        class="text-lg text-slate-300 hover:text-primary-400 transition-colors"
-                                    >
-                                        {siteData.contact.email}
-                                    </a>
-                                </div>
-                                <div>
-                                    <p
-                                        class="text-sm font-mono text-slate-500 mb-1"
-                                    >
-                                        PHONE
-                                    </p>
-                                    <a
-                                        href={`tel:${siteData.contact.phone}`}
-                                        class="text-lg text-slate-300 hover:text-primary-400 transition-colors"
-                                    >
-                                        {siteData.contact.phone}
-                                    </a>
-                                </div>
-                            </div>
+                        <p class="mb-4 font-mono text-sm uppercase tracking-[0.24em] text-primary-400">Start a conversation</p>
+                        <h2 class="max-w-xl text-4xl md:text-5xl font-bold font-display leading-[0.98] text-white">
+                            Have a challenge?<br />
+                            <span class="text-slate-500">Let's build it.</span>
+                        </h2>
+                        <p class="mt-6 max-w-md text-base leading-relaxed text-slate-400">
+                            Tell me what you are working on, where it is stuck, or where you want to take it next.
+                        </p>
+
+                        <div class="mt-10 border-l border-primary-400/50 pl-5">
+                            <p class="mb-2 text-xs font-mono uppercase tracking-widest text-slate-500">Available for</p>
+                            <p class="text-lg text-slate-200">AI product prototypes, workflow automation, and full-stack product builds.</p>
                         </div>
 
-                        <div
-                            class="bg-dark-surface/50 border border-white/10 rounded-3xl p-8 backdrop-blur-xl hover:border-primary-500/30 transition-colors group"
-                        >
-                            <h3
-                                class="text-xl font-bold text-white mb-6 flex items-center gap-3"
-                            >
-                                <span
-                                    class="p-3 rounded-lg bg-primary-500/10 text-primary-400 group-hover:bg-primary-500/20 transition-colors"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="w-6 h-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                                        ></path>
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                                        ></path>
-                                    </svg>
-                                </span>
-                                Base Location
-                            </h3>
-                            <div>
-                                <p
-                                    class="text-sm font-mono text-slate-500 mb-1"
-                                >
-                                    COORDINATES
-                                </p>
-                                <p class="text-lg text-slate-300">
-                                    {siteData.contact.address}
-                                </p>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Contact Form -->
                     <div
-                        class="order-1 lg:order-2 rounded-3xl p-8 md:p-10 bg-dark-surface/50 border border-white/10 backdrop-blur-xl shadow-2xl relative overflow-hidden"
+                        class="order-1 lg:order-2 relative overflow-hidden rounded-[2rem] border border-white/15 bg-slate-950/65 p-7 shadow-2xl shadow-black/20 backdrop-blur-xl md:p-10"
                         data-aos="zoom-in-left"
                     >
-                        <div
-                            class="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 rounded-bl-full pointer-events-none"
-                        >
+                        <div class="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary-500/15 blur-3xl pointer-events-none"></div>
+                        <div class="relative z-10 mb-8 flex items-center justify-between gap-4 border-b border-white/10 pb-6">
+                            <div>
+                                <p class="text-xs font-mono uppercase tracking-widest text-primary-300">Direct lines</p>
+                                <h3 class="mt-2 text-2xl font-bold font-display text-white">Pick your channel</h3>
+                            </div>
+                            <span class="flex items-center gap-2 text-xs text-slate-400">
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]"></span>
+                                Usually replies within 24h
+                            </span>
                         </div>
 
-                        <form
-                            class="space-y-6 relative z-10"
-                            name="contact"
-                            method="POST"
-                            data-netlify="true"
-                        >
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label
-                                        for="name"
-                                        class="text-sm font-mono text-primary-400"
-                                        >NAME</label
-                                    >
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        id="name"
-                                        required
-                                        class="w-full px-4 py-3 rounded-lg bg-dark-bg/80 border border-white/10 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all placeholder:text-slate-700"
-                                        placeholder="John_Doe"
-                                    />
-                                </div>
-                                <div class="space-y-2">
-                                    <label
-                                        for="email"
-                                        class="text-sm font-mono text-primary-400"
-                                        >EMAIL</label
-                                    >
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        required
-                                        class="w-full px-4 py-3 rounded-lg bg-dark-bg/80 border border-white/10 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all placeholder:text-slate-700"
-                                        placeholder="john@example.com"
-                                    />
-                                </div>
-                            </div>
-                            <div class="space-y-2">
-                                <label
-                                    for="message"
-                                    class="text-sm font-mono text-primary-400"
-                                    >DATA_PACKET</label
-                                >
-                                <textarea
-                                    name="message"
-                                    id="message"
-                                    rows="4"
-                                    required
-                                    class="w-full px-4 py-3 rounded-lg bg-dark-bg/80 border border-white/10 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all placeholder:text-slate-700"
-                                    placeholder="Message content..."></textarea>
-                            </div>
-                            <button
-                                type="submit"
-                                class="w-full py-4 rounded-xl bg-gradient-to-r from-primary-600 to-purple-600 text-white font-bold font-display uppercase tracking-wider hover:opacity-90 hover:shadow-neon transition-all transform active:scale-95 flex items-center justify-center gap-2"
+                        <div class="relative z-10 space-y-4">
+                            <a
+                                href={`mailto:${siteData.contact.email}`}
+                                class="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition-all duration-300 hover:border-cyan-300/50 hover:bg-cyan-300/[0.08]"
                             >
-                                Transmit Message
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="w-5 h-5"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                                    ></path>
-                                </svg>
-                            </button>
-                        </form>
+                                <span class="flex items-center gap-4">
+                                    <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-300/10 text-cyan-300 transition-transform group-hover:scale-110">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.25l9 5.25 9-5.25M4.5 19.5h15A1.5 1.5 0 0021 18V6a1.5 1.5 0 00-1.5-1.5h-15A1.5 1.5 0 003 6v12a1.5 1.5 0 001.5 1.5z" />
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <span class="block text-xs font-mono uppercase tracking-widest text-slate-500">Email me</span>
+                                        <span class="mt-1 block break-all text-sm text-slate-200">{siteData.contact.email}</span>
+                                    </span>
+                                </span>
+                                <span class="text-xl text-slate-500 transition-all group-hover:translate-x-1 group-hover:text-cyan-300" aria-hidden="true">→</span>
+                            </a>
+                            <a
+                                href={`https://wa.me/${siteData.contact.phone.replace(/\D/g, '')}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition-all duration-300 hover:border-emerald-300/50 hover:bg-emerald-300/[0.08]"
+                            >
+                                <span class="flex items-center gap-4">
+                                    <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-300/10 text-emerald-300 transition-transform group-hover:scale-110">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 10.5a5.25 5.25 0 007.5 4.77l2.23.48-.48-2.23A5.25 5.25 0 107.5 10.5z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75c.25 1.25 1.25 2.25 2.5 2.5" />
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <span class="block text-xs font-mono uppercase tracking-widest text-slate-500">Chat on WhatsApp</span>
+                                        <span class="mt-1 block text-sm text-slate-200">{siteData.contact.phone}</span>
+                                    </span>
+                                </span>
+                                <span class="text-xl text-slate-500 transition-all group-hover:translate-x-1 group-hover:text-emerald-300" aria-hidden="true">↗</span>
+                            </a>
+                            <p class="pt-3 text-center text-xs text-slate-500">Choose whichever feels easiest. I will get back to you soon.</p>
+                        </div>
                     </div>
                 </div>
             </div>

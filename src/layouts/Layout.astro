@@ -31,10 +31,7 @@ const { title, description = 'Husni Mubarok - Fullstack Developer Portfolio' } =
         class="bg-dark-bg text-slate-300 font-sans antialiased selection:bg-primary-500/30 selection:text-primary-200 cursor-none"
     >
         <CustomCursor />
-        <div
-            class="fixed inset-0 z-[-1] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-        >
-        </div>
+        <div class="ambient-gradient fixed inset-0 z-[-1]"></div>
 
         <slot />
         <script>
@@ -79,19 +76,6 @@ const { title, description = 'Husni Mubarok - Fullstack Developer Portfolio' } =
                 offset: 50,
             });
 
-            // Simple Parallax
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const backgrounds = document.querySelectorAll(
-                    '.fixed.inset-0.z-\\[-1\\]',
-                );
-                backgrounds.forEach((bg) => {
-                    if (bg instanceof HTMLElement) {
-                        const speed = 0.5;
-                        bg.style.transform = `translateY(${scrolled * speed}px)`;
-                    }
-                });
-            });
         </script>
     </body>
 </html>

@@ -1,7 +1,20 @@
 ---
 import skills from '../data/skills.json';
 
-const orbitingSkills = skills.slice(0, 5); // Take top 5 for the orbit
+const desiredOrbitingSkills = [
+    'TypeScript',
+    'Next.js',
+    'Astro',
+    'Go',
+    'Wails',
+    'Bun',
+    'React',
+    'Tailwind CSS'
+];
+
+const orbitingSkills = skills.filter((skill) =>
+    desiredOrbitingSkills.includes(skill.name)
+);
 ---
 
 <div
@@ -32,7 +45,7 @@ const orbitingSkills = skills.slice(0, 5); // Take top 5 for the orbit
     {
         orbitingSkills.map((skill, index) => {
             const angle = (index / orbitingSkills.length) * 2 * Math.PI;
-            const radius = 160; // Distance from center
+            const radius = 160;
             const x = Math.cos(angle) * radius;
             const y = Math.sin(angle) * radius;
 
@@ -42,11 +55,27 @@ const orbitingSkills = skills.slice(0, 5); // Take top 5 for the orbit
                     style={`transform: translate(${x}px, ${y}px);`}
                 >
                     <div
-                        class="w-12 h-12 bg-dark-surface border border-white/10 rounded-full flex items-center justify-center shadow-lg hover:scale-125 transition-transform duration-300 cursor-pointer animate-float"
-                        style={`animation-delay: ${index * 0.5}s;`}
+                        class="group w-14 h-14 bg-gradient-to-br from-slate-700/40 to-slate-900/40 border border-primary-400/20 hover:border-primary-400/60 rounded-full flex items-center justify-center shadow-lg hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] transition-all duration-300 cursor-pointer hover:scale-110 backdrop-blur-sm relative overflow-hidden"
+                        style={`animation: orbitFloat 8s ease-in-out infinite; animation-delay: ${index * 0.5}s;`}
                         title={skill.name}
                     >
-                        <i class={`${skill.icon} text-xl text-primary-300`} />
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
+                        
+                        {skill.name === 'Wails' ? (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                                fill="currentColor"
+                                class="text-primary-300 group-hover:text-primary-200 transition-colors duration-300 relative z-10"
+                                aria-label="Wails logo"
+                            >
+                                <path d="m19.67 5.252l-7.856 5.039l-.369-.459l-8.69-.283l1.891 1.904l5.221.106l1.63 1.656l-5.878.662l1.77 1.783l5.34-1.185l.003-.006l.993 1.168l-3.079 3.11l7.399.001l-1.582-5.002l2.209 3.14H24l-5.385-2.415h4.121l-5.384-2.418h4.117L16.297 9.73l1.088-1.443l4.09-1.076l-3.467.248zm-3.635 2.322l-6.039.43l1.455 1.826l1.813-.476zm-.252 2.84l-.86 1.145l-.001-.002l.154-.205zM0 12.2l5.615 1.033l-1.017-1.027z"/>
+                            </svg>
+                        ) : (
+                            <i class={`${skill.icon} text-2xl text-primary-300 group-hover:text-primary-200 transition-colors duration-300 relative z-10`} />
+                        )}
                     </div>
                 </div>
             );
@@ -61,6 +90,17 @@ const orbitingSkills = skills.slice(0, 5); // Take top 5 for the orbit
         }
         to {
             transform: rotate(360deg);
+        }
+    }
+
+    @keyframes orbitFloat {
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-6px);
         }
     }
 </style>

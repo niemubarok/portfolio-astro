@@ -2,6 +2,205 @@
 @tailwind components;
 @tailwind utilities;
 
+.ambient-gradient {
+    background:
+        radial-gradient(circle at 12% 18%, rgba(34, 211, 238, 0.1), transparent 32%),
+        radial-gradient(circle at 88% 12%, rgba(129, 140, 248, 0.14), transparent 34%),
+        radial-gradient(circle at 72% 78%, rgba(244, 114, 182, 0.08), transparent 30%),
+        linear-gradient(135deg, #0f172a 0%, #111827 48%, #0b1120 100%);
+    background-size: 130% 130%, 140% 140%, 125% 125%, 100% 100%;
+    animation: ambient-gradient-drift 24s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.skill-carousel-window {
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 7%,
+        black 93%,
+        transparent
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 7%,
+        black 93%,
+        transparent
+    );
+}
+
+@keyframes ambient-gradient-drift {
+    0% {
+        background-position: 0% 0%, 100% 0%, 100% 100%, 0% 0%;
+    }
+
+    100% {
+        background-position: 18% 10%, 82% 16%, 86% 84%, 0% 0%;
+    }
+}
+
+.project-gallery-grid {
+    columns: 1;
+    column-gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .project-gallery-grid {
+        columns: 2;
+    }
+}
+
+.project-gallery-item {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 1.5rem;
+    break-inside: avoid;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    background: rgba(15, 23, 42, 0.9);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+    vertical-align: top;
+}
+
+.project-gallery-trigger {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.project-gallery-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-gallery-trigger:hover .project-gallery-image {
+    transform: scale(1.05);
+}
+
+.gallery-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.gallery-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.gallery-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+.gallery-modal-panel {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 1100px);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: rgba(15, 23, 42, 0.96);
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.7);
+}
+
+.gallery-modal-image {
+    display: block;
+    width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 0.75rem;
+    background: rgba(15, 23, 42, 0.7);
+}
+
+.gallery-modal-caption {
+    margin: 0;
+    color: rgba(226, 232, 240, 0.85);
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.gallery-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 9999px;
+    background: rgba(15, 23, 42, 0.8);
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.gallery-modal-close:hover {
+    background: rgba(37, 99, 235, 0.35);
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 9999px;
+    background: rgba(15, 23, 42, 0.72);
+    color: white;
+    cursor: pointer;
+    z-index: 2;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.gallery-nav:hover {
+    background: rgba(37, 99, 235, 0.35);
+    transform: translateY(-50%) scale(1.04);
+}
+
+.gallery-nav svg {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.gallery-nav-prev {
+    left: 1rem;
+}
+
+.gallery-nav-next {
+    right: 1rem;
+}
+
 @layer utilities {
     .text-gradient {
         @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-purple-400;
@@ -248,6 +447,91 @@
         100% {
             clip: rect(44px, 9999px, 44px, 0);
             transform: skew(0.3deg);
+        }
+    }
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes fadeInRight {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(calc(-50% - 32px));
+        }
+    }
+
+    @keyframes scroll-reverse {
+        0% {
+            transform: translateX(calc(-50% - 32px));
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes loadBar {
+        from {
+            width: 0;
+        }
+    }
+
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-8px);
         }
     }
 }

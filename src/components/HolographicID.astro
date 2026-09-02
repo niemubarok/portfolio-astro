@@ -27,7 +27,7 @@ import siteData from '../data/site.json';
 
 <div
     id="id-card-wrapper"
-    class="relative group w-full max-w-[340px] aspect-[34/54] h-auto cursor-grab active:cursor-grabbing mt-4 lg:mt-16 mx-auto select-none touch-none"
+    class="relative group w-full max-w-[340px] h-auto cursor-grab active:cursor-grabbing mt-4 lg:mt-16 mx-auto select-none touch-none"
     style="perspective: 1000px;"
 >
     <!-- The Physics Card Container -->
@@ -50,7 +50,7 @@ import siteData from '../data/site.json';
 
         <!-- Main Card Body -->
         <div
-            class="relative w-full h-full bg-dark-bg/60 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden transform-style-3d flex flex-col items-center py-10 px-6"
+            class="relative w-full h-auto min-h-[500px] bg-dark-bg/60 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden transform-style-3d flex flex-col items-center py-6 px-4 sm:py-10 sm:px-6"
         >
             <!-- Top Gradient Strip -->
             <div
@@ -74,7 +74,7 @@ import siteData from '../data/site.json';
 
             <!-- Avatar -->
             <div
-                class="relative w-28 h-28 mb-6 mt-2 transform-style-3d translate-z-30 pointer-events-none"
+                class="relative w-24 h-24 sm:w-28 sm:h-28 mb-4 sm:mb-6 mt-2 transform-style-3d translate-z-30 pointer-events-none"
             >
                 <div
                     class="absolute -inset-1 rounded-full bg-gradient-to-br from-white/20 to-white/0 blur-sm"
@@ -93,12 +93,12 @@ import siteData from '../data/site.json';
                 class="text-center transform-style-3d translate-z-20 mb-6 pointer-events-none"
             >
                 <h2
-                    class="text-2xl font-display font-bold text-white mb-1 tracking-tight"
+                    class="text-xl sm:text-2xl font-display font-bold text-white mb-1 tracking-tight"
                 >
                     {siteData.profile.name}
                 </h2>
                 <p
-                    class="text-xs font-medium text-primary-300 tracking-wide uppercase opacity-90"
+                    class="text-[10px] sm:text-xs font-medium text-primary-300 tracking-wide uppercase opacity-90"
                 >
                     {siteData.profile.title}
                 </p>
@@ -106,10 +106,10 @@ import siteData from '../data/site.json';
 
             <!-- Bio Section -->
             <div
-                class="transform-style-3d translate-z-10 mb-8 px-2 pointer-events-none"
+                class="transform-style-3d translate-z-10 mb-5 sm:mb-8 px-1 sm:px-2 pointer-events-none"
             >
                 <p
-                    class="text-sm text-slate-300 text-center leading-relaxed font-light italic"
+                    class="text-[11px] sm:text-sm text-slate-300 text-center leading-relaxed font-light italic"
                 >
                     "{siteData.profile.bio}"
                 </p>
@@ -117,19 +117,19 @@ import siteData from '../data/site.json';
 
             <!-- Divider -->
             <div
-                class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6"
+                class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-4 sm:mb-6"
             >
             </div>
 
             <!-- Stats Grid -->
             <div
-                class="grid grid-cols-2 gap-4 w-full transform-style-3d translate-z-10 pointer-events-none"
+                class="grid grid-cols-2 gap-2 sm:gap-4 w-full transform-style-3d translate-z-10 pointer-events-none"
             >
                 <div>
                     <div
                         class="text-center p-3 rounded-xl bg-white/5 border border-white/5"
                     >
-                        <span class="block text-xl font-bold text-white mb-0.5"
+                        <span class="block text-lg sm:text-xl font-bold text-white mb-0.5"
                             >{siteData.profile.years_experience}+</span
                         >
                         <span
@@ -142,7 +142,7 @@ import siteData from '../data/site.json';
                     <div
                         class="text-center p-3 rounded-xl bg-white/5 border border-white/5"
                     >
-                        <span class="block text-xl font-bold text-white mb-0.5"
+                        <span class="block text-lg sm:text-xl font-bold text-white mb-0.5"
                             >{siteData.profile.projects_completed}</span
                         >
                         <span
@@ -154,7 +154,7 @@ import siteData from '../data/site.json';
             </div>
 
             <!-- Branding/Footer -->
-            <div class="mt-auto pt-6 opacity-30 pointer-events-none">
+            <div class="mt-auto pt-4 sm:pt-6 opacity-30 pointer-events-none">
                 <span class="text-[10px] font-mono tracking-[0.3em] uppercase"
                     >Verified ID</span
                 >

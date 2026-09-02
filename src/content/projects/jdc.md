@@ -6,6 +6,6 @@ tech_stack: ["TypeScript", "NextJS", "TailwindCSS"]
 demo_url: "https://j-d-c.com"
 github_url: "https://github.com/niemubarok/jdc"
 thumbnail: "/projects/thumbnails/jdc.png"
-gallery: ["/projects/thumbnails/jdc.png", "/projects/thumbnails/contraqs.png"]
+gallery: ["/projects/gallery/jdc"]
 order: 2
 ---

@@ -1,10 +1,10 @@
 {
   "site_name": "Mubarok Portfolio",
-  "site_tagline": "Software Engineer | Full-Stack Developer | System Integrator",
+  "site_tagline": "AI Product Engineer | Full-Stack Developer | System Integrator",
   "profile": {
     "name": "Husni Mubarok",
-    "title": "Fullstack Developer",
-    "bio": "Passionate developer with 5+ years of experience building modern web and desktop applications. Specialized in Laravel, Vue.js, and cloud technologies.",
+    "title": "AI & Fullstack Developer",
+    "bio": "Product-minded developer with 5+ years designing and shipping web, desktop, and AI-powered solutions. I build with Laravel, Vue, Next.js, Astro, and modern AI tooling to turn ideas into reliable products—from LLM workflows and automation to scalable full-stack systems.",
     "avatar": "/images/settings/avatar.png",
     "years_experience": 5,
     "projects_completed": 50,

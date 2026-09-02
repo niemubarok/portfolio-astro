@@ -14,25 +14,46 @@
     "order": 2
   },
   {
+    "name": "TypeScript",
+    "icon": "devicon-typescript-plain",
+    "proficiency": 88,
+    "category": "frontend",
+    "order": 3
+  },
+  {
     "name": "Vue.js",
     "icon": "devicon-vuejs-plain",
     "proficiency": 85,
     "category": "frontend",
-    "order": 3
+    "order": 4
   },
   {
     "name": "React",
     "icon": "devicon-react-original",
     "proficiency": 80,
     "category": "frontend",
-    "order": 4
+    "order": 5
+  },
+  {
+    "name": "Next.js",
+    "icon": "devicon-nextjs-plain",
+    "proficiency": 78,
+    "category": "frontend",
+    "order": 6
+  },
+  {
+    "name": "Astro",
+    "icon": "devicon-astro-plain",
+    "proficiency": 80,
+    "category": "frontend",
+    "order": 7
   },
   {
     "name": "Tailwind CSS",
     "icon": "devicon-tailwindcss-plain",
     "proficiency": 90,
     "category": "frontend",
-    "order": 5
+    "order": 8
   },
   {
     "name": "PHP",
@@ -56,18 +77,39 @@
     "order": 3
   },
   {
+    "name": "Go",
+    "icon": "devicon-go-plain",
+    "proficiency": 70,
+    "category": "backend",
+    "order": 4
+  },
+  {
+    "name": "Bun",
+    "icon": "devicon-bun-plain",
+    "proficiency": 65,
+    "category": "backend",
+    "order": 5
+  },
+  {
+    "name": "Wails",
+    "icon": "custom-wails",
+    "proficiency": 60,
+    "category": "backend",
+    "order": 6
+  },
+  {
     "name": "MySQL",
     "icon": "devicon-mysql-plain",
     "proficiency": 90,
     "category": "backend",
-    "order": 5
+    "order": 7
   },
   {
     "name": "PostgreSQL",
     "icon": "devicon-postgresql-plain",
     "proficiency": 85,
     "category": "backend",
-    "order": 6
+    "order": 8
   },
   {
     "name": "Docker",
@@ -84,10 +126,45 @@
     "order": 2
   },
   {
+    "name": "Podman",
+    "icon": "devicon-podman-plain",
+    "proficiency": 70,
+    "category": "devops",
+    "order": 3
+  },
+  {
+    "name": "CouchDB",
+    "icon": "devicon-couchdb-plain",
+    "proficiency": 65,
+    "category": "backend",
+    "order": 9
+  },
+  {
+    "name": "DuckDB",
+    "icon": "devicon-duckdb-plain",
+    "proficiency": 60,
+    "category": "backend",
+    "order": 10
+  },
+  {
     "name": "Git",
     "icon": "devicon-git-plain",
     "proficiency": 90,
     "category": "tools",
     "order": 1
+  },
+  {
+    "name": "GitHub Copilot",
+    "icon": "devicon-github-plain",
+    "proficiency": 88,
+    "category": "tools",
+    "order": 2
+  },
+  {
+    "name": "VS Code",
+    "icon": "devicon-vscode-plain",
+    "proficiency": 90,
+    "category": "tools",
+    "order": 3
   }
 ]
