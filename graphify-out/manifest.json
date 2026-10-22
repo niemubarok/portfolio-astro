@@ -1,0 +1,458 @@
+{
+  "astro.config.mjs": {
+    "mtime": 1788345091.651849,
+    "seen": 1792461354.3004043,
+    "ast_hash": "b143a126d30d9164ef2dab5523a9c6c2",
+    "semantic_hash": "b143a126d30d9164ef2dab5523a9c6c2"
+  },
+  "package.json": {
+    "mtime": 1768287655.39882,
+    "seen": 1792461354.3004043,
+    "ast_hash": "2c9b27f1b727f5b2d606520ffba77931",
+    "semantic_hash": "2c9b27f1b727f5b2d606520ffba77931"
+  },
+  "src/components/CareerTimeline.astro": {
+    "mtime": 1788344513.3652873,
+    "seen": 1792461354.3004043,
+    "ast_hash": "91c824045676d91e7d3acb549e49c65e",
+    "semantic_hash": "91c824045676d91e7d3acb549e49c65e"
+  },
+  "src/components/CodeBackground.astro": {
+    "mtime": 1788345857.6420574,
+    "seen": 1792461354.3004043,
+    "ast_hash": "7c4715eb44ed6d9146ce478ebaa52cb9",
+    "semantic_hash": "7c4715eb44ed6d9146ce478ebaa52cb9"
+  },
+  "src/components/CustomCursor.astro": {
+    "mtime": 1788363080.3969705,
+    "seen": 1792461354.3004043,
+    "ast_hash": "f5162d75dd0d8a88a486e7deab6fffb4",
+    "semantic_hash": "f5162d75dd0d8a88a486e7deab6fffb4"
+  },
+  "src/components/FeaturedProjects3D.astro": {
+    "mtime": 1788364893.025459,
+    "seen": 1792461354.3004043,
+    "ast_hash": "d6a870fbc66207c88fbf02fb16ec090d",
+    "semantic_hash": "d6a870fbc66207c88fbf02fb16ec090d"
+  },
+  "src/components/FloatingTech.astro": {
+    "mtime": 1788364858.7145257,
+    "seen": 1792461354.3004043,
+    "ast_hash": "18a50784a007d1b79da29b153bbc2f7f",
+    "semantic_hash": "18a50784a007d1b79da29b153bbc2f7f"
+  },
+  "src/components/FloatingWhatsApp.astro": {
+    "mtime": 1788344619.579497,
+    "seen": 1792461354.3004043,
+    "ast_hash": "fc5a1cd8c49ad172d9d87172149918b1",
+    "semantic_hash": "fc5a1cd8c49ad172d9d87172149918b1"
+  },
+  "src/components/Footer.astro": {
+    "mtime": 1788346025.5810292,
+    "seen": 1792461354.3004043,
+    "ast_hash": "ce89a35810a9c797834eb560904a21f9",
+    "semantic_hash": "ce89a35810a9c797834eb560904a21f9"
+  },
+  "src/components/HolographicID.astro": {
+    "mtime": 1788364843.4800339,
+    "seen": 1792461354.3004043,
+    "ast_hash": "135baf29b40c1a1e196ce0cbb54aad65",
+    "semantic_hash": "135baf29b40c1a1e196ce0cbb54aad65"
+  },
+  "src/components/Navbar.astro": {
+    "mtime": 1788344416.7600725,
+    "seen": 1792461354.3004043,
+    "ast_hash": "4e6813c37ee327f4d7f8ede945c6757d",
+    "semantic_hash": "4e6813c37ee327f4d7f8ede945c6757d"
+  },
+  "src/components/ProjectCard3D.astro": {
+    "mtime": 1788355036.532159,
+    "seen": 1792461354.3004043,
+    "ast_hash": "3192d461d06afa42c5db678e84e1e499",
+    "semantic_hash": "3192d461d06afa42c5db678e84e1e499"
+  },
+  "src/components/SpaceBackground.astro": {
+    "mtime": 1788363048.3879051,
+    "seen": 1792461354.3004043,
+    "ast_hash": "d9eee2511d614028b2a2828c127af395",
+    "semantic_hash": "d9eee2511d614028b2a2828c127af395"
+  },
+  "src/components/TechBackground.astro": {
+    "mtime": 1788363058.8743427,
+    "seen": 1792461354.3004043,
+    "ast_hash": "8e7a65690724f530592b3642323fba18",
+    "semantic_hash": "8e7a65690724f530592b3642323fba18"
+  },
+  "src/components/Testimonials.astro": {
+    "mtime": 1788354470.9700842,
+    "seen": 1792461354.3004043,
+    "ast_hash": "829453abc5ee52995e339895e95319ae",
+    "semantic_hash": "829453abc5ee52995e339895e95319ae"
+  },
+  "src/content/config.ts": {
+    "mtime": 1768204543.0056543,
+    "seen": 1792461354.3004043,
+    "ast_hash": "21f57370e9a3cf158e60fabc03fbb270",
+    "semantic_hash": "21f57370e9a3cf158e60fabc03fbb270"
+  },
+  "src/data/career.json": {
+    "mtime": 1788332755.7078009,
+    "seen": 1792461354.3004043,
+    "ast_hash": "99ee23d26fb1d3c128eafda5c4f181c5",
+    "semantic_hash": "99ee23d26fb1d3c128eafda5c4f181c5"
+  },
+  "src/data/site.json": {
+    "mtime": 1788335302.3305664,
+    "seen": 1792461354.3004043,
+    "ast_hash": "b8aef3f9d18e3ce5f475d98ab653d970",
+    "semantic_hash": "b8aef3f9d18e3ce5f475d98ab653d970"
+  },
+  "src/data/skills.json": {
+    "mtime": 1788335302.3573074,
+    "seen": 1792461354.3004043,
+    "ast_hash": "cc709a229bc4d82c38a9d9c16995bf18",
+    "semantic_hash": "cc709a229bc4d82c38a9d9c16995bf18"
+  },
+  "src/data/testimonials.json": {
+    "mtime": 1788321685.3172343,
+    "seen": 1792461354.3004043,
+    "ast_hash": "8d58dd0a230f51c5e80245b424533816",
+    "semantic_hash": "8d58dd0a230f51c5e80245b424533816"
+  },
+  "src/env.d.ts": {
+    "mtime": 1765421487.3598757,
+    "seen": 1792461354.3004043,
+    "ast_hash": "98ab50f75507bc672502f57a4d1b3d86",
+    "semantic_hash": "98ab50f75507bc672502f57a4d1b3d86"
+  },
+  "src/layouts/Layout.astro": {
+    "mtime": 1788364824.9113333,
+    "seen": 1792461354.3004043,
+    "ast_hash": "dc036de2b56d0f644a2eac827133e20b",
+    "semantic_hash": "dc036de2b56d0f644a2eac827133e20b"
+  },
+  "src/pages/index.astro": {
+    "mtime": 1788363093.7800648,
+    "seen": 1792461354.3004043,
+    "ast_hash": "df1a0ba71910eb4a81e13a09c9c1466f",
+    "semantic_hash": "df1a0ba71910eb4a81e13a09c9c1466f"
+  },
+  "src/pages/projects/[slug].astro": {
+    "mtime": 1788344637.0510173,
+    "seen": 1792461354.3004043,
+    "ast_hash": "4df3043371625f6b0b8ffa70ccafd57c",
+    "semantic_hash": "4df3043371625f6b0b8ffa70ccafd57c"
+  },
+  "src/pages/projects/index.astro": {
+    "mtime": 1788344626.7481673,
+    "seen": 1792461354.3004043,
+    "ast_hash": "66a03bd4612451d2357709c7d86e237f",
+    "semantic_hash": "66a03bd4612451d2357709c7d86e237f"
+  },
+  "tailwind.config.mjs": {
+    "mtime": 1788344368.2943523,
+    "seen": 1792461354.3004043,
+    "ast_hash": "de353fc071e8d9fd1953f52c896e3e45",
+    "semantic_hash": "de353fc071e8d9fd1953f52c896e3e45"
+  },
+  "tsconfig.json": {
+    "mtime": 1768273481.5973108,
+    "seen": 1792461354.3004043,
+    "ast_hash": "6cd0bbd27b394f9eb38e08d30e3552c7",
+    "semantic_hash": "6cd0bbd27b394f9eb38e08d30e3552c7"
+  },
+  "README.md": {
+    "mtime": 1765421704.0768995,
+    "seen": 1792461354.3004043,
+    "ast_hash": "d936930bbb5d29c699fa7110372be8b7",
+    "semantic_hash": "d936930bbb5d29c699fa7110372be8b7"
+  },
+  "src/content/projects/cloud-menu-admin.md": {
+    "mtime": 1788319440.5816538,
+    "seen": 1792461354.3004043,
+    "ast_hash": "345357aae51369798ea8d90082c7e416",
+    "semantic_hash": "345357aae51369798ea8d90082c7e416"
+  },
+  "src/content/projects/contraqs.md": {
+    "mtime": 1788322252.9190087,
+    "seen": 1792461354.3004043,
+    "ast_hash": "485668a0f2f2e1b6e17290f43a9fe75e",
+    "semantic_hash": "485668a0f2f2e1b6e17290f43a9fe75e"
+  },
+  "src/content/projects/convex.md": {
+    "mtime": 1788322451.4979317,
+    "seen": 1792461354.3004043,
+    "ast_hash": "596977234e0dfa37526919a33612c1ed",
+    "semantic_hash": "596977234e0dfa37526919a33612c1ed"
+  },
+  "src/content/projects/fiqih-plant.md": {
+    "mtime": 1788319441.65843,
+    "seen": 1792461354.3004043,
+    "ast_hash": "3d8d8c18c72a84f654c0e7d14294bd87",
+    "semantic_hash": "3d8d8c18c72a84f654c0e7d14294bd87"
+  },
+  "src/content/projects/jdc.md": {
+    "mtime": 1788331590.984292,
+    "seen": 1792461354.3004043,
+    "ast_hash": "f25f1be142971d7c8817cd81d3c375c2",
+    "semantic_hash": "f25f1be142971d7c8817cd81d3c375c2"
+  },
+  "src/content/projects/khairil-tour.md": {
+    "mtime": 1788332452.770998,
+    "seen": 1792461354.3004043,
+    "ast_hash": "cc548af9146348c53e9591c0cb9e56f6",
+    "semantic_hash": "cc548af9146348c53e9591c0cb9e56f6"
+  },
+  "src/content/projects/mixsure.md": {
+    "mtime": 1788322464.4438114,
+    "seen": 1792461354.3004043,
+    "ast_hash": "a5c40d9f85f9672758e49ce156396f20",
+    "semantic_hash": "a5c40d9f85f9672758e49ce156396f20"
+  },
+  "src/content/projects/oubama.md": {
+    "mtime": 1788322765.1484997,
+    "seen": 1792461354.3004043,
+    "ast_hash": "a762f8e69665194bba51ee5c85d5b69f",
+    "semantic_hash": "a762f8e69665194bba51ee5c85d5b69f"
+  },
+  "src/content/projects/patient-registration.md": {
+    "mtime": 1768272794.1269472,
+    "seen": 1792461354.3004043,
+    "ast_hash": "f483d61f8866a4ea1509024646b78afe",
+    "semantic_hash": "f483d61f8866a4ea1509024646b78afe"
+  },
+  "src/content/projects/sagha-news.md": {
+    "mtime": 1788321779.451856,
+    "seen": 1792461354.3004043,
+    "ast_hash": "83d313079ec1a3ae366e3aea4bf2dcf4",
+    "semantic_hash": "83d313079ec1a3ae366e3aea4bf2dcf4"
+  },
+  "src/content/projects/saida.md": {
+    "mtime": 1788319319.1288414,
+    "seen": 1792461354.3004043,
+    "ast_hash": "5f8daeaa020b449c13e2aa1e7d0bcc63",
+    "semantic_hash": "5f8daeaa020b449c13e2aa1e7d0bcc63"
+  },
+  "src/content/projects/sipinjat.md": {
+    "mtime": 1768201253.2542403,
+    "seen": 1792461354.3004043,
+    "ast_hash": "d259d91586d2f8902b1239afe5d192e4",
+    "semantic_hash": "d259d91586d2f8902b1239afe5d192e4"
+  },
+  "src/content/projects/sparta.md": {
+    "mtime": 1788319316.9368334,
+    "seen": 1792461354.3004043,
+    "ast_hash": "a5fc7b7a3dc8665377835d98e944ea63",
+    "semantic_hash": "a5fc7b7a3dc8665377835d98e944ea63"
+  },
+  "src/content/projects/tax-sheet.md": {
+    "mtime": 1788323591.7260685,
+    "seen": 1792461354.3004043,
+    "ast_hash": "1ec3379350d346409e97002669044248",
+    "semantic_hash": "1ec3379350d346409e97002669044248"
+  },
+  "src/implementation_plan.md": {
+    "mtime": 1765507955.2903047,
+    "seen": 1792461354.3004043,
+    "ast_hash": "759206d4235486e26d1344a3d322b83a",
+    "semantic_hash": "759206d4235486e26d1344a3d322b83a"
+  },
+  "src/implementation_plan_mobile_fix.md": {
+    "mtime": 1765442065.8463435,
+    "seen": 1792461354.3004043,
+    "ast_hash": "bc8c3aed1b91ff6ca924bce0a5979b61",
+    "semantic_hash": "bc8c3aed1b91ff6ca924bce0a5979b61"
+  },
+  "src/task.md": {
+    "mtime": 1765512404.7378585,
+    "seen": 1792461354.3004043,
+    "ast_hash": "a966752abe5f8b251e9d4873a326d13a",
+    "semantic_hash": "a966752abe5f8b251e9d4873a326d13a"
+  },
+  "src/walkthrough_fix_grid_svg.md": {
+    "mtime": 1765441578.7803676,
+    "seen": 1792461354.3004043,
+    "ast_hash": "01fcc2c8d8865f9f0d4a45e2cfe8769a",
+    "semantic_hash": "01fcc2c8d8865f9f0d4a45e2cfe8769a"
+  },
+  "src/walkthrough_mobile_fix.md": {
+    "mtime": 1765444885.0076702,
+    "seen": 1792461354.3004043,
+    "ast_hash": "51b7116945555b170099dba8cb6d0f77",
+    "semantic_hash": "51b7116945555b170099dba8cb6d0f77"
+  },
+  "public/images/settings/avatar.png": {
+    "mtime": 1765331953.8268275,
+    "seen": 1792461354.3004043,
+    "ast_hash": "9d7e33d24aa88273fdad35305be38021",
+    "semantic_hash": "9d7e33d24aa88273fdad35305be38021"
+  },
+  "public/projects/gallery/01KC34DKF0N4BYRDDX72MFT5XG.png": {
+    "mtime": 1765336862.179285,
+    "seen": 1792461354.3004043,
+    "ast_hash": "5221b22c7b10cf8a88d321afb44f75a1",
+    "semantic_hash": "5221b22c7b10cf8a88d321afb44f75a1"
+  },
+  "public/projects/gallery/01KC34DKF80WTVEKM3SAM146M0.png": {
+    "mtime": 1765336862.1853817,
+    "seen": 1792461354.3004043,
+    "ast_hash": "45458c6a8f60d9846d9cb6a825a93bac",
+    "semantic_hash": "45458c6a8f60d9846d9cb6a825a93bac"
+  },
+  "public/projects/gallery/01KC34DKFFHNSPRJGRTDHP7E3Z.png": {
+    "mtime": 1765336862.1945112,
+    "seen": 1792461354.3004043,
+    "ast_hash": "26788a1c64f967312eb859946d4d7f82",
+    "semantic_hash": "26788a1c64f967312eb859946d4d7f82"
+  },
+  "public/projects/gallery/rsasm/rsasm-available-doctor-schedule.png": {
+    "mtime": 1768272290.201204,
+    "seen": 1792461354.3004043,
+    "ast_hash": "de638170dbd39a046d53c69538062f80",
+    "semantic_hash": "de638170dbd39a046d53c69538062f80"
+  },
+  "public/projects/gallery/rsasm/rsasm-doctor-schedule.png": {
+    "mtime": 1768272348.0214787,
+    "seen": 1792461354.3004043,
+    "ast_hash": "eeedbeeb67add338b92c41eb5739c8f4",
+    "semantic_hash": "eeedbeeb67add338b92c41eb5739c8f4"
+  },
+  "public/projects/gallery/rsasm/rsasm-home.png": {
+    "mtime": 1768272270.7542267,
+    "seen": 1792461354.3004043,
+    "ast_hash": "11d82ecbe673fa9f19d07300ba63d860",
+    "semantic_hash": "11d82ecbe673fa9f19d07300ba63d860"
+  },
+  "public/projects/gallery/rsasm/rsasm-registration-form.png": {
+    "mtime": 1768272364.8842676,
+    "seen": 1792461354.3004043,
+    "ast_hash": "567e139311e1c8cf82ed9f2cdd93a01c",
+    "semantic_hash": "567e139311e1c8cf82ed9f2cdd93a01c"
+  },
+  "public/projects/gallery/saghanews/Screenshot 2026-09-02 103345.png": {
+    "mtime": 1788320025.5659885,
+    "seen": 1792461354.3004043,
+    "ast_hash": "e65a60f076d007a73e313df828e65055",
+    "semantic_hash": "e65a60f076d007a73e313df828e65055"
+  },
+  "public/projects/gallery/saghanews/Screenshot 2026-09-02 103528.png": {
+    "mtime": 1788320129.5397844,
+    "seen": 1792461354.3004043,
+    "ast_hash": "28c2a8d4c235ad19a73f82c53667afc6",
+    "semantic_hash": "28c2a8d4c235ad19a73f82c53667afc6"
+  },
+  "public/projects/gallery/saghanews/Screenshot 2026-09-02 110725.png": {
+    "mtime": 1788322046.486947,
+    "seen": 1792461354.3004043,
+    "ast_hash": "e7e7b97588125c9bff86e300ad839523",
+    "semantic_hash": "e7e7b97588125c9bff86e300ad839523"
+  },
+  "public/projects/gallery/saghanews/Screenshot 2026-09-02 110745.png": {
+    "mtime": 1788322066.3960712,
+    "seen": 1792461354.3004043,
+    "ast_hash": "eebc667a4dd7fe4fba90fec484dad186",
+    "semantic_hash": "eebc667a4dd7fe4fba90fec484dad186"
+  },
+  "public/projects/gallery/saghanews/Screenshot 2026-09-02 110810.png": {
+    "mtime": 1788322090.5329852,
+    "seen": 1792461354.3004043,
+    "ast_hash": "4c9ced678788b5183b97dd2a33b68be6",
+    "semantic_hash": "4c9ced678788b5183b97dd2a33b68be6"
+  },
+  "public/projects/gallery/saghanews/Screenshot 2026-09-02 110827.png": {
+    "mtime": 1788322108.3630035,
+    "seen": 1792461354.3004043,
+    "ast_hash": "f7d55951716d1582456e0d7f1610ce75",
+    "semantic_hash": "f7d55951716d1582456e0d7f1610ce75"
+  },
+  "public/projects/gallery/saghanews/Screenshot 2026-09-02 110841.png": {
+    "mtime": 1788322122.0274668,
+    "seen": 1792461354.3004043,
+    "ast_hash": "5ef914bacd801a1e60d2670507ac798f",
+    "semantic_hash": "5ef914bacd801a1e60d2670507ac798f"
+  },
+  "public/projects/gallery/saghanews/saghanews.com.png": {
+    "mtime": 1788321968.3934684,
+    "seen": 1792461354.3004043,
+    "ast_hash": "5ab3b22eded7082e1292917b96d53beb",
+    "semantic_hash": "5ab3b22eded7082e1292917b96d53beb"
+  },
+  "public/projects/thumbnails/01KC34DKCWE6BFBYNFAJFA0TPE.png": {
+    "mtime": 1765336862.1096663,
+    "seen": 1792461354.3004043,
+    "ast_hash": "9982e0dffeeae0e3a9a9f27f0016eaa3",
+    "semantic_hash": "9982e0dffeeae0e3a9a9f27f0016eaa3"
+  },
+  "public/projects/thumbnails/01KC3GNGTTZ1D5DN4AWR3YEZ9K.jpg": {
+    "mtime": 1765349704.5432725,
+    "seen": 1792461354.3004043,
+    "ast_hash": "cfdd7024543de2afeb63db308b7cbc6c",
+    "semantic_hash": "cfdd7024543de2afeb63db308b7cbc6c"
+  },
+  "public/projects/thumbnails/contraqs.png": {
+    "mtime": 1768202009.7002873,
+    "seen": 1792461354.3004043,
+    "ast_hash": "aba36a0db3130041bbb63d7faf9ecc6d",
+    "semantic_hash": "aba36a0db3130041bbb63d7faf9ecc6d"
+  },
+  "public/projects/thumbnails/convex.png": {
+    "mtime": 1768200057.1421745,
+    "seen": 1792461354.3004043,
+    "ast_hash": "87b90a5317a9587870c73e1eeca3722d",
+    "semantic_hash": "87b90a5317a9587870c73e1eeca3722d"
+  },
+  "public/projects/thumbnails/fiqihplant.png": {
+    "mtime": 1768202182.3807514,
+    "seen": 1792461354.3004043,
+    "ast_hash": "7a85a60e64baa75ee3f61fe2f23e9b65",
+    "semantic_hash": "7a85a60e64baa75ee3f61fe2f23e9b65"
+  },
+  "public/projects/thumbnails/jdc.png": {
+    "mtime": 1788322386.4245684,
+    "seen": 1792461354.3004043,
+    "ast_hash": "84c9c4f29472328d8174e23cd5bdc63e",
+    "semantic_hash": "84c9c4f29472328d8174e23cd5bdc63e"
+  },
+  "public/projects/thumbnails/khairiltour.png": {
+    "mtime": 1788322290.875572,
+    "seen": 1792461354.3004043,
+    "ast_hash": "a005769d468c256c21d8fb4e24ebbe18",
+    "semantic_hash": "a005769d468c256c21d8fb4e24ebbe18"
+  },
+  "public/projects/thumbnails/mixsure.png": {
+    "mtime": 1788322556.109092,
+    "seen": 1792461354.3004043,
+    "ast_hash": "718b298e27306b66c50f0e5b56c7f60c",
+    "semantic_hash": "718b298e27306b66c50f0e5b56c7f60c"
+  },
+  "public/projects/thumbnails/oubama.png": {
+    "mtime": 1788322721.5625114,
+    "seen": 1792461354.3004043,
+    "ast_hash": "3248d4c5dc62b92d8a559332674c9dfc",
+    "semantic_hash": "3248d4c5dc62b92d8a559332674c9dfc"
+  },
+  "public/projects/thumbnails/rsasm.png": {
+    "mtime": 1768272241.590792,
+    "seen": 1792461354.3004043,
+    "ast_hash": "de638170dbd39a046d53c69538062f80",
+    "semantic_hash": "de638170dbd39a046d53c69538062f80"
+  },
+  "public/projects/thumbnails/saghanews.png": {
+    "mtime": 1788320741.9497972,
+    "seen": 1792461354.3004043,
+    "ast_hash": "aa650966fa6ad8a4df52d938839a6a3b",
+    "semantic_hash": "aa650966fa6ad8a4df52d938839a6a3b"
+  },
+  "public/projects/thumbnails/sipinjat.png": {
+    "mtime": 1768200585.9533663,
+    "seen": 1792461354.3004043,
+    "ast_hash": "0077c965df27f20f440d9a196ca5ad6c",
+    "semantic_hash": "0077c965df27f20f440d9a196ca5ad6c"
+  },
+  "public/projects/thumbnails/taxsheet.png": {
+    "mtime": 1788323461.130314,
+    "seen": 1792461354.3004043,
+    "ast_hash": "a24dc76729ee6c2666d584f015d76464",
+    "semantic_hash": "a24dc76729ee6c2666d584f015d76464"
+  }
+}
